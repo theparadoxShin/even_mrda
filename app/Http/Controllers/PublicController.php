@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationConfirmation;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
@@ -36,7 +39,7 @@ class PublicController extends Controller
         try {
             Mail::to($registration->email)->send(new RegistrationConfirmation($registration));
         } catch (\Exception $e) {
-            \Log::error('Erreur envoi email inscription: ' . $e->getMessage());
+            Log::error('Erreur envoi email inscription: ' . $e->getMessage());
         }
 
 

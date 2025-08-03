@@ -14,6 +14,8 @@ class RegistrationConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $registration;
+
     /**
      * Create a new message instance.
      */
@@ -39,6 +41,9 @@ class RegistrationConfirmation extends Mailable
     {
         return new Content(
             view: 'emails.registration-confirmation',
+            with: [
+                'registration' => $this->registration,
+            ],
         );
     }
 
