@@ -123,4 +123,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'version' => '1.0.0',
+    'developer' => [
+        'name' => 'Parfait Tedom Tedom',
+        'website' => 'https://parfaittedomtedom.com',
+        'email' => 'contact@parfaittedomtedom.com'
+    ],
+
 ];
