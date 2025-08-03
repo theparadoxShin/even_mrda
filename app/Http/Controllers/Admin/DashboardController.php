@@ -10,6 +10,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -35,12 +40,27 @@ class DashboardController extends Controller
         return redirect()->back()->with('success', 'Événement créé avec succès!');
     }
 
-    private function generateEventQR(Event $event)
-    {
+    private function generateEventQR(Event $event){
+        // Générer l'URL d'inscription
         $url = route('event.register', $event->id);
-        $qrCodeName = 'qr-event-' . $event->id . '.png';
+        $qrCodeName = 'qr-event-' . $event->id . '.svg';
 
-        QrCode::format('png')->size(300)->generate($url, storage_path('app/public/qrcodes/' . $qrCodeName));
+        // Créer le dossier s'il n'existe pas
+        $qrPath = storage_path('app/public/qrcodes');
+        if (!file_exists($qrPath)) {
+            mkdir($qrPath, 0755, true);
+        }
+
+        // Utiliser BaconQrCode avec SVG pour créer le QR code
+        $renderer = new ImageRenderer(
+            new RendererStyle(300),
+            new SvgImageBackEnd()
+        );
+
+        $writer = new Writer($renderer);
+        $qrCode = $writer->writeString($url);
+
+        file_put_contents($qrPath . '/' . $qrCodeName, $qrCode);
 
         $event->update(['qr_code' => $qrCodeName]);
     }
@@ -59,7 +79,7 @@ class DashboardController extends Controller
     public function getWhatsAppLink(Event $event)
     {
         $url = route('event.register', $event->id);
-        $message = "Inscription à l'événement: {$event->name}\nLien d'inscription: {$url}";
+        $message = "Inscription à l'événement: {$event->name}\nLien d'inscription: ".$url;
         $whatsappUrl = "https://wa.me/?text=" . urlencode($message);
 
         return response()->json(['url' => $whatsappUrl]);
@@ -87,6 +107,7 @@ class DashboardController extends Controller
 
     private function generateConfirmationQR(Registration $registration)
     {
+        // Préparer les données de confirmation au format JSON
         $data = json_encode([
             'registration_id' => $registration->id,
             'name' => $registration->full_name,
@@ -94,15 +115,39 @@ class DashboardController extends Controller
             'status' => 'paye'
         ]);
 
-        $qrCodeName = 'confirmation-' . $registration->id . '.png';
-        QrCode::format('png')->size(300)->generate($data, storage_path('app/public/confirmations/' . $qrCodeName));
+        // Générer le nom unique du fichier QR code
+        $qrCodeName = 'confirmation-' . $registration->id . '.svg';
 
+        // Créer le dossier confirmations s'il n'existe pas
+        $qrPath = storage_path('app/public/confirmations');
+        if (!file_exists($qrPath)) {
+            mkdir($qrPath, 0755, true);
+        }
+
+        // Configurer le renderer BaconQrCode avec SVG (évite imagick)
+        $renderer = new ImageRenderer(
+            new RendererStyle(300),
+            new SvgImageBackEnd()
+        );
+
+        // Créer le writer et générer le QR code
+        $writer = new Writer($renderer);
+        $qrCode = $writer->writeString($data);
+
+        // Sauvegarder le fichier QR code
+        file_put_contents($qrPath . '/' . $qrCodeName, $qrCode);
+
+        // Mettre à jour la registration avec le nom du QR code
         $registration->update(['confirmation_qr' => $qrCodeName]);
     }
 
     private function sendConfirmationEmail(Registration $registration)
     {
-        // Implémentation de l'envoi d'email sera dans la section Mail
+        try {
+            Mail::to($registration->email)->send(new PaymentConfirmation($registration));
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi email: ' . $e->getMessage());
+        }
     }
 
 }

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author" content="Parfait Tedom Tedom">
+    <meta name="developer" content="Parfait Tedom Tedom - https://parfaittedomtedom.com">
+    <meta name="description" content="Application de gestion d'événements de chorales développées par Parfait Tedom Tedom">
     <title>@yield('title', 'Chorale App')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -57,6 +60,7 @@
             border: none;
             border-radius: 25px;
             padding: 12px 30px;
+            color: var(--white) !important;
             font-weight: 600;
             transition: all 0.3s ease;
             width: 100%;
@@ -64,6 +68,7 @@
 
         .btn-primary-custom:hover {
             transform: scale(1.05);
+            color: var(--white) !important;
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
 
@@ -163,8 +168,8 @@
 <body>
 <div class="hero-section">
     <div class="container">
-        <div class="icon-wrapper">
-            <i class="fas fa-music"></i>
+        <div class="icon-wrapper" style="background: white;">
+            <img src="{{ asset('logo.png') }}" alt="Chorale App Logo" class="img-fluid" style="width: 40px; height: 40px;">
         </div>
         <h1 class="display-4 fw-bold mb-3">@yield('hero-title', 'Chorale App')</h1>
         <p class="lead">@yield('hero-subtitle', 'Inscription aux événements')</p>

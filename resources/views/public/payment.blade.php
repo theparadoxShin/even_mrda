@@ -107,6 +107,11 @@
                             <i class="fab fa-cc-mastercard me-1"></i>
                             Cartes acceptées
                         </small>
+                        <small class="text-muted">
+                            Par <a href="https://parfaittedomtedom.com" target="_blank" class="text-primary">
+                                Parfait Tedom Tedom
+                            </a>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -123,8 +128,8 @@
                     <p class="text-muted mb-4">
                         Votre inscription a été confirmée. Vous recevrez un email de confirmation avec votre QR code d'entrée.
                     </p>
-                    <button type="button" class="btn btn-primary-custom" onclick="window.close()">
-                        <i class="fas fa-home me-2"></i>Fermer
+                    <button type="button" class="btn btn-primary-custom" onclick="finish()">
+                        <i class="fas fa-home me-2"></i>Vers l'accueil
                     </button>
                 </div>
             </div>
@@ -257,6 +262,10 @@
             submitButton.disabled = false;
             paymentText.style.display = 'inline-block';
             paymentLoading.style.display = 'none';
+        }
+
+        function finish() {
+            window.location.href = '{{ route("success") }}';
         }
     </script>
 @endpush

@@ -48,6 +48,7 @@
             border: none;
             border-radius: 25px;
             padding: 10px 25px;
+            color: var(--white) !important;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -55,6 +56,7 @@
         .btn-primary-custom:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+            color: var(--white) !important;
         }
 
         .badge-custom {
@@ -149,7 +151,8 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-            <i class="fas fa-music me-2"></i>Chorale Admin
+           <img src="{{ asset('logo.png') }}" alt="Chorale MRDA Logo" class="d-inline-block align-text-top img-fluid" style="height: 40px; background: white">
+            <i class="fas fa-music me-2"></i>Admin MRDA
         </a>
         <div class="navbar-nav ms-auto">
             <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
@@ -164,17 +167,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2 p-0">
-            <div class="sidebar">
-                <div class="nav flex-column nav-pills p-3">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-                       href="{{ route('admin.dashboard') }}">
-                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="main-content">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

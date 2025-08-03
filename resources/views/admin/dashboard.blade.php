@@ -157,6 +157,7 @@
 
 @push('scripts')
     <script>
+        // Fonction pour partager le lien sur WhatsApp
         function shareWhatsApp(eventId) {
             fetch(`/admin/events/${eventId}/whatsapp`)
                 .then(response => response.json())
@@ -170,36 +171,46 @@
         }
 
         function printQR(qrCode) {
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
+            const qrUrl = "{{ asset('storage/qrcodes/') }}" + "/" + qrCode;
+
+            // Vérifier si le fichier existe avant d'ouvrir la fenêtre d'impression
+            fetch(qrUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (!response.ok) {
+                        alert('Le fichier QR code est introuvable');
+                        return;
+                    }
+
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(`
         <html lang="fr">
             <head>
-                <title>QR Code - Chorale</title>
+                <title>QR Code - Evenement Chorale MRDA</title>
                 <style>
-                    body {
-                        text-align: center;
-                        padding: 20px;
-                        font-family: Arial, sans-serif;
-                    }
-                    img {
-                        max-width: 300px;
-                        margin: 20px 0;
-                    }
-                    h1 {
-                        color: #2563eb;
-                        margin-bottom: 30px;
-                    }
+                    body { text-align: center; padding: 20px; font-family: Arial, sans-serif; }
+                    .qr-container { max-width: 300px; margin: 20px auto; border: 1px solid #ddd; padding: 10px; }
+                    h1 { color: #2563eb; margin-bottom: 30px; }
                 </style>
             </head>
             <body>
                 <h1>Code QR - Inscription Chorale</h1>
-                <img src="/storage/qrcodes/${qrCode}" alt="QR Code">
+                <div class="qr-container">
+                    <embed src="${qrUrl}" type="image/svg+xml" width="280" height="280">
+                </div>
                 <p>Scannez ce code pour vous inscrire à l'événement</p>
             </body>
         </html>
-    `);
-            printWindow.document.close();
-            printWindow.print();
+            `);
+                    printWindow.document.close();
+
+                    setTimeout(() => {
+                        printWindow.print();
+                    }, 1500);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors du chargement du QR code');
+                });
         }
     </script>
 @endpush

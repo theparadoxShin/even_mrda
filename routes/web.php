@@ -5,11 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\WelcomeController;
 
 // Routes publiques
 Route::get('/', function () {
-    return redirect('/admin/login');
+    return redirect()->route('admin.login');
 });
+
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/success', [WelcomeController::class, 'success'])->name('success');
+
 
 Route::get('/event/{event}/register', [PublicController::class, 'showRegistrationForm'])->name('event.register');
 Route::post('/event/{event}/register', [PublicController::class, 'register'])->name('event.register.store');
@@ -30,4 +35,27 @@ Route::prefix('admin')->group(function () {
         Route::get('/events/{event}/registrations', [DashboardController::class, 'eventRegistrations'])->name('admin.events.registrations');
         Route::patch('/registrations/{registration}/payment', [DashboardController::class, 'updatePaymentStatus'])->name('admin.registrations.payment');
     });
+});
+
+
+// Dans routes/web.php - Ajouter temporairement pour débugger
+
+Route::get('/debug-qr', function () {
+    $event = \App\Models\Event::first();
+    if (!$event || !$event->qr_code) {
+        return "Aucun événement avec QR trouvé";
+    }
+
+    $qrPath = storage_path('app/public/qrcodes/' . $event->qr_code);
+    $publicUrl = asset('storage/qrcodes/' . $event->qr_code);
+
+    return [
+        'event_id' => $event->id,
+        'qr_filename' => $event->qr_code,
+        'storage_path' => $qrPath,
+        'storage_exists' => file_exists($qrPath),
+        'public_url' => $publicUrl,
+        'storage_link_exists' => is_link(public_path('storage')),
+        'file_content_preview' => file_exists($qrPath) ? substr(file_get_contents($qrPath), 0, 200) . '...' : 'Fichier non trouvé'
+    ];
 });

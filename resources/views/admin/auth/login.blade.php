@@ -9,9 +9,10 @@
             <div class="card-body p-5">
                 <div class="text-center mb-4">
                     <div class="icon-wrapper">
-                        <i class="fas fa-music"></i>
+                        <img src="{{ asset('logo.png') }}" alt="MRDA Logo" class="img-fluid mb-3"
+                             style="width: 80px; height: 80px;">
                     </div>
-                    <h3 class="fw-bold text-primary">Chorale Admin</h3>
+                    <h3 class="fw-bold text-primary">MRDA Admin</h3>
                     <p class="text-muted">Connectez-vous à votre compte</p>
                 </div>
 
@@ -47,6 +48,16 @@
                     </button>
                 </form>
             </div>
+
+            <div class="text-center mt-4 pt-3 border-top">
+                <small class="text-muted d-block mb-2">Application développée par</small>
+                <a href="https://parfaittedomtedom.com" target="_blank"
+                   class="text-primary text-decoration-none fw-bold">
+                    <i class="fas fa-code me-1"></i>
+                    Parfait Tedom Tedom
+                </a>
+            </div>
+
         </div>
     </div>
 @endsection

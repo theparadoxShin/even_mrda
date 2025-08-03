@@ -32,6 +32,14 @@ class PublicController extends Controller
             'phone' => $request->phone,
         ]);
 
+        // Envoyer email de confirmation d'inscription
+        try {
+            Mail::to($registration->email)->send(new RegistrationConfirmation($registration));
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi email inscription: ' . $e->getMessage());
+        }
+
+
         return redirect()->route('payment.form', $registration->id);
     }
 
@@ -59,7 +67,11 @@ class PublicController extends Controller
                     'payment_status' => 'paye'
                 ]);
 
-                return response()->json(['success' => true]);
+                // Rediriger vers la page de succès
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('success')
+                ]);
             }
 
             return response()->json(['error' => 'Paiement échoué']);

@@ -2,7 +2,7 @@
 
 @section('title', 'Inscription - ' . $event->name)
 @section('hero-title', $event->name)
-@section('hero-subtitle', 'Inscrivez-vous à cet événement exceptionnel')
+@section('hero-subtitle', 'Inscrivez-vous à cet événement')
 
 @section('content')
     <div class="row justify-content-center">
