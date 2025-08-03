@@ -41,11 +41,11 @@
 
                 <!-- Méthodes de paiement -->
                 <div class="payment-methods mb-4">
-                    <div class="payment-method selected" data-method="card">
+                    {{--<div class="payment-method selected" data-method="card">
                         <i class="fas fa-credit-card fa-2x mb-2 d-block"></i>
                         <span>Carte bancaire</span>
-                    </div>
-                    <div class="payment-method" data-method="interac">
+                    </div>--}}
+                    <div class="payment-method selected" data-method="interac">
                         <i class="fas fa-university fa-2x mb-2 d-block"></i>
                         <span>Interac</span>
                     </div>
@@ -53,7 +53,7 @@
 
                 <form id="payment-form">
                     @csrf
-                    <div id="card-payment" class="payment-section">
+                    <div id="card-payment" class="payment-section" style="display: none;">
                         <div class="mb-3">
                             <label class="form-label">
                                 <i class="fas fa-credit-card me-1"></i>Numéro de carte
@@ -73,7 +73,7 @@
                         </div>
                     </div>
 
-                    <div id="interac-payment" class="payment-section" style="display: none;">
+                    <div id="interac-payment" class="payment-section">
                         <div class="text-center p-4">
                             <i class="fas fa-university fa-3x text-primary mb-3"></i>
                             <h5>Paiement par virement Interac</h5>
