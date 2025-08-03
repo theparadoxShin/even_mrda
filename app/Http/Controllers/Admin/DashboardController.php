@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PaymentConfirmation;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -146,7 +149,7 @@ class DashboardController extends Controller
         try {
             Mail::to($registration->email)->send(new PaymentConfirmation($registration));
         } catch (\Exception $e) {
-            \Log::error('Erreur envoi email: ' . $e->getMessage());
+            Log::error('Erreur envoi email: ' . $e->getMessage());
         }
     }
 

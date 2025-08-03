@@ -15,6 +15,8 @@ class PaymentConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $registration;
+
     /**
      * Create a new message instance.
      */
@@ -58,7 +60,7 @@ class PaymentConfirmation extends Mailable
         return [
             Attachment::fromPath(
                 storage_path('app/public/confirmations/' . $this->registration->confirmation_qr)
-            )->as('qr-code-confirmation.png')->withMime('image/png')
+            )->as('qr-code-confirmation.svg')->withMime('image/svg')
         ];
     }
 
