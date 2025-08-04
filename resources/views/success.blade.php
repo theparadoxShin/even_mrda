@@ -109,7 +109,7 @@
         <i class="fas fa-check"></i>
     </div>
 
-    <h1 class="h2 fw-bold text-success mb-3">Paiement Réussi !</h1>
+    <h1 class="h2 fw-bold text-success mb-3">Inscription Réussi !</h1>
     <p class="lead text-muted mb-4">
         Félicitations ! Votre inscription a été confirmée avec succès.
     </p>
@@ -120,7 +120,8 @@
         </h5>
         <ul class="text-start text-muted">
             <li class="mb-2">✅ Vous allez recevoir un email de confirmation</li>
-            <li class="mb-2">🎫 Votre QR code d'entrée sera joint à l'email</li>
+            <li class="mb-2">💲 Vous devez payer le montant requis et être validé</li>
+            <li class="mb-2">🎫 Votre QR code d'entrée sera joint à l'email de validation de paiement</li>
             <li class="mb-2">📱 Vous recevrez des rappels avant l'événement</li>
             <li class="mb-2">🎵 Préparez-vous à vivre une expérience musicale unique !</li>
         </ul>

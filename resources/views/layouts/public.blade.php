@@ -176,7 +176,7 @@
 <div class="hero-section">
     <div class="container">
         <div class="icon-wrapper" style="background: white;">
-            <img src="{{ asset('logo.png') }}" alt="Chorale App Logo" class="img-fluid" style="width: 40px; height: 40px;">
+            <img src="{{ asset('logo.png') }}" alt="MRDA Logo" class="img-fluid" style="width: 40px; height: 40px;">
         </div>
         <h1 class="display-4 fw-bold mb-3">@yield('hero-title', 'Chorale App')</h1>
         <p class="lead">@yield('hero-subtitle', 'Inscription aux événements')</p>

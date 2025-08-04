@@ -151,17 +151,39 @@
                 padding: 15px;
             }
         }
+
+        .icon-wrapper {
+            background: var(--white);
+            color: var(--primary-blue);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+        }
     </style>
     @stack('styles')
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex align-items-center">
+        <!-- Élément gauche -->
         <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-           <img src="{{ asset('logo.png') }}" alt="Chorale MRDA Logo" class="d-inline-block align-text-top img-fluid" style="height: 40px; background: white">
             <i class="fas fa-music me-2"></i>Admin MRDA
         </a>
-        <div class="navbar-nav ms-auto">
+
+        <!-- Élément centré -->
+        <div class="mx-auto">
+            <div class="icon-wrapper">
+                <img src="{{ asset('logo.png') }}" alt="Chorale MRDA Logo" class="d-inline-block align-text-top img-fluid" style="height: 40px; background: white">
+            </div>
+        </div>
+
+        <!-- Élément droite -->
+        <div class="navbar-nav">
             <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-outline-light">

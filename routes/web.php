@@ -27,7 +27,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('admin.login.post');
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-    Route::middleware('auth:admin')->group(function () {
+    Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('/events', [DashboardController::class, 'createEvent'])->name('admin.events.create');
         Route::get('/events/{event}/qr/download', [DashboardController::class, 'downloadQR'])->name('admin.events.qr.download');
