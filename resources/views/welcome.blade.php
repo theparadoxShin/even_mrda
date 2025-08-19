@@ -430,15 +430,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-envelope fa-2x mb-2"></i>
-                        <div>contact@chorale.com</div>
+                        <div>choralemrda2025@gmail.com</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-phone fa-2x mb-2"></i>
-                        <div>(514) 123-4567</div>
+                        <div>(438) 491-8227</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-map-marker-alt fa-2x mb-2"></i>
-                        <div>Montréal, QC</div>
+                        <div>Montréal, QC, Canada</div>
                     </div>
                 </div>
             </div>
