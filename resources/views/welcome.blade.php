@@ -470,11 +470,11 @@
                 <div class="contact-info">
                     <p class="mb-2">
                         <i class="fas fa-envelope me-2"></i>
-                        contact@chorale.com
+                        choralemrda2025@gmail.com
                     </p>
                     <p class="mb-2">
                         <i class="fas fa-phone me-2"></i>
-                        (514) 123-4567
+                        (438) 491-8227
                     </p>
                     <p class="mb-0">
                         <i class="fas fa-map-marker-alt me-2"></i>
@@ -512,7 +512,7 @@
 
         <div class="row align-items-center">
             <div class="col-md-6">
-                <p class="mb-0">&copy; {{ date('Y') }} Chorale App. Tous droits réservés.</p>
+                <p class="mb-0">&copy; {{ date('Y') }} Chorale MRDA. Tous droits réservés.</p>
             </div>
             <div class="col-md-6 text-md-end">
                 <small class="text-muted">
