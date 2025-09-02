@@ -7,6 +7,14 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\WelcomeController;
 
+// Language routes
+Route::get('/language/{locale}', function ($locale) {
+    if (in_array($locale, array_keys(config('app.available_locales')))) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('language.switch');
+
 // Routes publiques
 Route::get('/', function () {
     return redirect()->route('admin.login');

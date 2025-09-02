@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="fr">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenue - Chorale MRDA</title>
+    <title>{{ app()->getLocale() == 'fr' ? 'Bienvenue' : 'Welcome' }} - Chorale MRDA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -203,17 +203,32 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#events">Événements</a>
+                    <a class="nav-link" href="#events">{{ __('welcome.events') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">À propos</a>
+                    <a class="nav-link" href="#about">{{ __('welcome.about') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link" href="#contact">{{ __('welcome.contact') }}</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-language me-1"></i>{{ config('app.available_locales')[app()->getLocale()] }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                        @foreach(config('app.available_locales') as $code => $name)
+                            <li>
+                                <a class="dropdown-item {{ app()->getLocale() == $code ? 'active' : '' }}" 
+                                   href="{{ route('language.switch', $code) }}">
+                                    {{ $name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-primary-custom ms-2" href="{{ route('admin.login') }}">
-                        <i class="fas fa-sign-in-alt me-1"></i>Admin
+                        <i class="fas fa-sign-in-alt me-1"></i>{{ __('welcome.admin') }}
                     </a>
                 </li>
             </ul>
@@ -228,17 +243,16 @@
             <div class="icon-wrapper" style="width: 120px; height: 120px; font-size: 3rem; margin-bottom: 30px;">
                 <i class="fas fa-music"></i>
             </div>
-            <h1 class="display-3 fw-bold mb-4">Chorale Marie Reine des Apôtres</h1>
+            <h1 class="display-3 fw-bold mb-4">{{ __('welcome.choir_name') }}</h1>
             <p class="lead mb-5">
-                Découvrez la passion du chant choral et participez à nos événements exceptionnels.
-                Une communauté musicale qui vous attend !
+                {{ __('welcome.hero_description') }}
             </p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="#events" class="btn btn-primary-custom btn-lg">
-                    <i class="fas fa-calendar-alt me-2"></i>Voir les événements
+                    <i class="fas fa-calendar-alt me-2"></i>{{ __('welcome.view_events') }}
                 </a>
                 <a href="#about" class="btn btn-outline-custom btn-lg">
-                    <i class="fas fa-info-circle me-2"></i>En savoir plus
+                    <i class="fas fa-info-circle me-2"></i>{{ __('welcome.learn_more') }}
                 </a>
             </div>
         </div>
@@ -254,21 +268,21 @@
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <h3 class="fw-bold text-primary">{{ $stats['total_events'] }}+</h3>
-                <p class="text-muted">Événements organisés</p>
+                <p class="text-muted">{{ __('welcome.events_organized') }}</p>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="icon-wrapper">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3 class="fw-bold text-primary">{{ $stats['total_participants'] }}+</h3>
-                <p class="text-muted">Participants satisfaits</p>
+                <p class="text-muted">{{ __('welcome.satisfied_participants') }}</p>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="icon-wrapper">
                     <i class="fas fa-star"></i>
                 </div>
                 <h3 class="fw-bold text-primary">{{ $stats['years_experience'] }}+</h3>
-                <p class="text-muted">Années d'expérience</p>
+                <p class="text-muted">{{ __('welcome.years_experience') }}</p>
             </div>
         </div>
     </div>
@@ -278,8 +292,8 @@
 <section id="events" class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary">Prochains Événements</h2>
-            <p class="lead text-muted">Découvrez nos événements à venir et inscrivez-vous dès maintenant</p>
+            <h2 class="display-5 fw-bold text-primary">{{ __('welcome.upcoming_events') }}</h2>
+            <p class="lead text-muted">{{ __('welcome.upcoming_events_description') }}</p>
         </div>
 
         @if($upcomingEvents->count() > 0)
@@ -307,7 +321,7 @@
 
                             <a href="{{ route('event.register', $event) }}"
                                class="btn btn-primary-custom w-100">
-                                <i class="fas fa-ticket-alt me-2"></i>S'inscrire maintenant
+                                <i class="fas fa-ticket-alt me-2"></i>{{ __('welcome.register_now') }}
                             </a>
                         </div>
                     </div>
@@ -318,8 +332,8 @@
                 <div class="icon-wrapper" style="margin-bottom: 30px;">
                     <i class="fas fa-calendar-plus"></i>
                 </div>
-                <h4 class="text-muted">Aucun événement programmé</h4>
-                <p class="text-muted">De nouveaux événements seront bientôt annoncés !</p>
+                <h4 class="text-muted">{{ __('welcome.no_events_scheduled') }}</h4>
+                <p class="text-muted">{{ __('welcome.new_events_soon') }}</p>
             </div>
         @endif
     </div>
@@ -330,34 +344,33 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h2 class="display-5 fw-bold text-primary mb-4">À propos de notre Chorale</h2>
+                <h2 class="display-5 fw-bold text-primary mb-4">{{ __('welcome.about_choir') }}</h2>
                 <p class="lead mb-4">
-                    Depuis {{ 2017 }}, notre chorale rassemble des passionnés de musique de tous niveaux.
-                    Nous organisons régulièrement des concerts, des spectacles et des événements musicaux.
+                    {{ __('welcome.about_description') }}
                 </p>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>Tous niveaux acceptés</span>
+                            <span>{{ __('welcome.all_levels_accepted') }}</span>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>Événements réguliers</span>
+                            <span>{{ __('welcome.regular_events') }}</span>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>Ambiance conviviale</span>
+                            <span>{{ __('welcome.friendly_atmosphere') }}</span>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>Répertoire varié</span>
+                            <span>{{ __('welcome.varied_repertoire') }}</span>
                         </div>
                     </div>
                 </div>
@@ -377,7 +390,7 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary">Pourquoi nous choisir ?</h2>
+            <h2 class="display-5 fw-bold text-primary">{{ __('welcome.why_choose_us') }}</h2>
         </div>
         <div class="row">
             <div class="col-lg-4 mb-4">
@@ -385,10 +398,9 @@
                     <div class="icon-wrapper">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h4 class="fw-bold text-primary">Inscription facile</h4>
+                    <h4 class="fw-bold text-primary">{{ __('welcome.easy_registration') }}</h4>
                     <p class="text-muted">
-                        Inscrivez-vous en ligne facilement avec notre système de QR codes
-                        pour une expérience fluide et moderne.
+                        {{ __('welcome.easy_registration_desc') }}
                     </p>
                 </div>
             </div>
@@ -397,10 +409,9 @@
                     <div class="icon-wrapper">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4 class="fw-bold text-primary">Paiement sécurisé</h4>
+                    <h4 class="fw-bold text-primary">{{ __('welcome.secure_payment') }}</h4>
                     <p class="text-muted">
-                        Payez en toute sécurité avec Stripe. Cartes bancaires et
-                        virements Interac acceptés.
+                        {{ __('welcome.secure_payment_desc') }}
                     </p>
                 </div>
             </div>
@@ -409,10 +420,9 @@
                     <div class="icon-wrapper">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <h4 class="fw-bold text-primary">Notifications</h4>
+                    <h4 class="fw-bold text-primary">{{ __('welcome.notifications') }}</h4>
                     <p class="text-muted">
-                        Recevez vos confirmations par email avec QR code et
-                        rappels automatiques avant les événements.
+                        {{ __('welcome.notifications_desc') }}
                     </p>
                 </div>
             </div>
@@ -423,22 +433,22 @@
 <!-- Contact Section -->
 <section id="contact" class="py-5 bg-primary text-white">
     <div class="container text-center">
-        <h2 class="display-5 fw-bold mb-4">Nous contacter</h2>
-        <p class="lead mb-4">Une question ? N'hésitez pas à nous contacter !</p>
+        <h2 class="display-5 fw-bold mb-4">{{ __('welcome.contact_us') }}</h2>
+        <p class="lead mb-4">{{ __('welcome.contact_question') }}</p>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-envelope fa-2x mb-2"></i>
-                        <div>contact@chorale.com</div>
+                        <div>{{ __('welcome.email') }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-phone fa-2x mb-2"></i>
-                        <div>(514) 123-4567</div>
+                        <div>{{ __('welcome.phone') }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <i class="fas fa-map-marker-alt fa-2x mb-2"></i>
-                        <div>Montréal, QC</div>
+                        <div>{{ __('welcome.location') }}</div>
                     </div>
                 </div>
             </div>
@@ -455,8 +465,7 @@
                     <img src="{{ asset('logo.png') }}" alt="Chorale MRDA" class="d-inline-block align-text-top" style="height: 100px;">
                 </h5>
                 <p class="text-muted">
-                    Plateforme moderne de gestion d'événements chorals avec
-                    paiements sécurisés et QR codes.
+                    {{ __('welcome.footer_description') }}
                 </p>
                 <div class="social-links">
                     <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
@@ -466,29 +475,29 @@
             </div>
 
             <div class="col-lg-4 mb-4 ">
-                <h5 class="fw-bold mb-3">Contact</h5>
+                <h5 class="fw-bold mb-3">{{ __('welcome.contact') }}</h5>
                 <div class="contact-info">
                     <p class="mb-2">
                         <i class="fas fa-envelope me-2"></i>
-                        choralemrda2025@gmail.com
+                        {{ __('welcome.email') }}
                     </p>
                     <p class="mb-2">
                         <i class="fas fa-phone me-2"></i>
-                        (438) 491-8227
+                        {{ __('welcome.phone') }}
                     </p>
                     <p class="mb-0">
                         <i class="fas fa-map-marker-alt me-2"></i>
-                        Montréal, QC, Canada
+                        {{ __('welcome.location') }}
                     </p>
                 </div>
             </div>
 
             <div class="col-lg-4 mb-4 text-center">
                 <h5 class="fw-bold mb-3">
-                    <i class="fas fa-code me-2"></i>Développement
+                    <i class="fas fa-code me-2"></i>{{ __('welcome.development') }}
                 </h5>
                 <div class="developer-section p-3 rounded" style="background: rgba(255, 255, 255, 0.05);">
-                    <p class="text-muted mb-2">Application créée par :</p>
+                    <p class="text-muted mb-2">{{ __('welcome.created_by') }}</p>
                     <a href="https://parfaittedomtedom.com" target="_blank"
                        class="text-white text-decoration-none d-block mb-2">
                         <strong class="fs-5">Parfait Tedom Tedom ( Développeur Web Senior , Baryton Basse à MRDA )</strong>
@@ -501,7 +510,7 @@
                     <div class="mt-2">
                         <small class="text-muted">
                             <i class="fas fa-shield-alt me-1"></i>
-                            Développement professionnel & sécurisé
+                            {{ __('welcome.professional_development') }}
                         </small>
                     </div>
                 </div>
@@ -512,11 +521,11 @@
 
         <div class="row align-items-center">
             <div class="col-md-6">
-                <p class="mb-0">&copy; {{ date('Y') }} Chorale MRDA. Tous droits réservés.</p>
+                <p class="mb-0">&copy; {{ date('Y') }} Chorale MRDA. {{ __('welcome.all_rights_reserved') }}</p>
             </div>
             <div class="col-md-6 text-md-end">
                 <small class="text-muted">
-                    Développé avec ❤️ par
+                    {{ __('welcome.developed_with_love') }}
                     <a href="https://parfaittedomtedom.com" target="_blank" class="text-white">
                         Parfait Tedom Tedom
                     </a>
