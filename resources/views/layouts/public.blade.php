@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Parfait Tedom Tedom">
     <meta name="developer" content="Parfait Tedom Tedom - https://parfaittedomtedom.com">
-    <meta name="description" content="Application de gestion d'événements de chorales développées par Parfait Tedom Tedom">
-    <title>@yield('title', 'Chorale App')</title>
+    <meta name="description" content="@yield('meta-description', 'Chorale MRDA - Ensemble vocal dédié à la musique sacrée à Montreal, QC Canada')">
+    <title>@yield('title', 'Chorale MRDA')</title>
 
     <!-- Favicon et icônes -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
@@ -15,193 +15,283 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
+    <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="{{ asset('css/music-theme.css') }}" rel="stylesheet">
+
+    <!-- Global Styles -->
     <style>
         :root {
             --primary-blue: #2563eb;
             --light-blue: #dbeafe;
             --dark-blue: #1e40af;
+            --gold: #f59e0b;
             --white: #ffffff;
             --light-gray: #f8fafc;
         }
 
         body {
             background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.65;
+            padding-top: 80px; /* Space for fixed navbar */
+            font-weight: 400;
+            font-size: 16px;
+            color: #2d3748;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-            color: var(--white);
-            padding: 60px 0;
-            text-align: center;
+        /* Global animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Main content wrapper */
+        .main-content {
+            min-height: calc(100vh - 80px);
             position: relative;
-            overflow: hidden;
         }
 
-        .hero-section::before {
+        /* Page section styling */
+        .page-section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-blue);
+            position: relative;
+        }
+
+        .section-title::after {
             content: '';
             position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--gold));
+            border-radius: 2px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { 
+                transform: translateX(-50%) scaleX(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateX(-50%) scaleX(1.2);
+                opacity: 1;
+                box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+            }
+        }
+
+        /* Button styles */
+        .btn-musical {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-musical::before {
+            content: '→';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            font-weight: 600;
+        }
+
+        .btn-musical:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            color: white;
+        }
+
+        .btn-musical:hover::before {
+            left: 12px;
+        }
+
+        /* Card animations */
+        .card-animate {
+            transition: all 0.3s ease;
+        }
+
+        .card-animate:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
-            background-size: 50px 50px;
-        }
-
-        .card-form {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            background: var(--white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            color: var(--white) !important;
-            font-weight: 600;
-            transition: all 0.3s ease;
             width: 100%;
-        }
-
-        .btn-primary-custom:hover {
-            transform: scale(1.05);
-            color: var(--white) !important;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-
-        .form-control {
-            border-radius: 10px;
-            border: 2px solid #e2e8f0;
-            padding: 12px 15px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: var(--dark-blue);
-            margin-bottom: 8px;
-        }
-
-        .event-info {
-            background: var(--light-blue);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 2px solid var(--primary-blue);
-        }
-
-        .price-highlight {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-
-        .icon-wrapper {
+            height: 100%;
             background: var(--primary-blue);
-            color: var(--white);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.5rem;
+            flex-direction: column;
+            transition: opacity 0.5s ease;
         }
 
-        .payment-methods {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .payment-method {
-            background: var(--white);
-            border: 2px solid var(--primary-blue);
-            border-radius: 10px;
-            padding: 15px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            min-width: 120px;
+        .loading-musical-icon {
+            font-size: 4rem;
+            color: var(--gold);
+            animation: musicBounce 1.5s ease-in-out infinite;
+            margin-bottom: 1rem;
         }
 
-        .payment-method:hover,
-        .payment-method.selected {
-            background: var(--primary-blue);
-            color: var(--white);
-            transform: translateY(-5px);
+        @keyframes musicBounce {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 1;
+            }
+            25% { 
+                transform: translateY(-20px) rotate(-10deg); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(0deg); 
+                opacity: 0.9;
+            }
+            75% { 
+                transform: translateY(-20px) rotate(10deg); 
+                opacity: 0.8;
+            }
         }
 
-        .spinner-border-custom {
-            color: var(--primary-blue);
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 40px 0;
+            body {
+                padding-top: 70px;
             }
 
-            .card-form {
-                padding: 25px;
-                margin: 15px;
+            .section-title {
+                font-size: 2rem;
             }
 
-            .payment-methods {
-                flex-direction: column;
-                align-items: center;
+            .page-section {
+                padding: 2rem 0;
             }
         }
     </style>
+
     @stack('styles')
 </head>
 <body>
-<div class="hero-section">
-    <div class="container">
-        <div class="icon-wrapper" style="background: white;">
-            <img src="{{ asset('logo.png') }}" alt="Chorale App Logo" class="img-fluid" style="width: 40px; height: 40px;">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="text-center text-white">
+            <i class="fas fa-music loading-musical-icon"></i>
+            <p>Chargement...</p>
         </div>
-        <h1 class="display-4 fw-bold mb-3">@yield('hero-title', 'Chorale App')</h1>
-        <p class="lead">@yield('hero-subtitle', 'Inscription aux événements')</p>
     </div>
-</div>
 
-<div class="container my-5">
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+    <!-- Header Component -->
+    @include('components.header')
 
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+    <!-- Main Content -->
+    <main class="main-content">
+        @yield('content')
+    </main>
 
-    @yield('content')
-</div>
+    <!-- Footer Component -->
+    @include('components.footer')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-@stack('scripts')
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Global JavaScript -->
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100
+            });
+
+            // Hide loading overlay
+            setTimeout(function() {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.classList.add('hidden');
+                setTimeout(() => loadingOverlay.remove(), 500);
+            }, 1000);
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Auto-hide alerts
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    if (alert && typeof bootstrap !== 'undefined') {
+                        const bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }
+                });
+            }, 5000);
+
+            // Add fade-in class to body for smooth page transitions
+            document.body.classList.add('fade-in');
+        });
+
+        // Page transition effects
+        window.addEventListener('beforeunload', function() {
+            document.body.style.opacity = '0.7';
+            document.body.style.transform = 'scale(0.98)';
+        });
+    </script>
+
+    @stack('scripts')
 </body>
 </html>

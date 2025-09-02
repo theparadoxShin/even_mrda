@@ -1,565 +1,524 @@
-<!DOCTYPE html>
+@extends('layouts.public')
 
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ app()->getLocale() == 'fr' ? 'Bienvenue' : 'Welcome' }} - Chorale MRDA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #2563eb;
-            --light-blue: #dbeafe;
-            --dark-blue: #1e40af;
-            --white: #ffffff;
-            --light-gray: #f8fafc;
+@section('title', app()->getLocale() == 'fr' ? 'Accueil' : 'Home')
+@section('meta-description', 'Chorale MRDA - Accueil - Ensemble vocal dédié à la musique sacrée à Montreal, QC Canada')
+
+@push('styles')
+@livewireStyles
+
+<style>
+    /* Carrousel héro avec animations musicales */
+    .hero-carousel {
+        height: 80vh;
+        position: relative;
+        overflow: hidden;
+        margin-top: -80px; /* Compensate for navbar padding */
+    }
+
+    .carousel-item {
+        height: 80vh;
+        position: relative;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .carousel-item.active img {
+        animation: kenBurns 4s ease-in-out;
+    }
+
+    @keyframes kenBurns {
+        0% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(37, 99, 235, 0.7), rgba(30, 64, 175, 0.5));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-content {
+        text-align: center;
+        color: white;
+        z-index: 2;
+    }
+
+    .carousel-content h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+        0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(245, 158, 11, 0.3); }
+        100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(245, 158, 11, 0.6); }
+    }
+
+    .carousel-content p {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Cartes d'événements avec animations */
+    .event-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.4s ease;
+        border-left: 5px solid var(--gold);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .event-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .event-card:hover {
+        transform: translateY(-15px) rotateX(5deg);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .event-card:hover::before {
+        left: 100%;
+    }
+
+    /* Statistiques animées */
+    .stats-section {
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        padding: 60px 0;
+        position: relative;
+    }
+
+    .stats-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+        animation: float 20s infinite linear;
+    }
+
+    /* Icon wrappers and feature cards */
+    .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .icon-wrapper:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    .icon-wrapper i {
+        position: relative;
+        z-index: 2;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Centered sections */
+    .stats-section .container,
+    .page-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .stats-section .row,
+    .page-section .row {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .mx-auto {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .carousel-content h1 {
+            font-size: 2.5rem;
         }
 
-        body {
-            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-            color: var(--white);
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
-            background-size: 50px 50px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: var(--white) !important;
-            text-decoration: none;
-        }
-
-        .btn-primary-custom:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-            color: var(--white) !important;
-        }
-
-        .btn-outline-custom {
-            border: 2px solid var(--primary-blue);
-            color: var(--primary-blue);
-            background: transparent;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-outline-custom:hover {
-            background: var(--primary-blue);
-            color: var(--white) !important;
-            transform: scale(1.05);
-        }
-
-        .card-custom {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            background: var(--white);
-        }
-
-        .card-custom:hover {
-            transform: translateY(-10px);
+        .hero-carousel, .carousel-item {
+            height: 60vh;
         }
 
         .icon-wrapper {
-            background: var(--primary-blue);
-            color: var(--white);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-        }
-
-        .stats-section {
-            background: var(--white);
-            padding: 80px 0;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 40px 20px;
-            height: 100%;
-        }
-
-        .navbar-custom {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
+            width: 60px;
+            height: 60px;
             font-size: 1.5rem;
-            color: var(--primary-blue) !important;
         }
+    }
+</style>
+@endpush
 
-        .nav-link {
-            color: var(--primary-blue) !important;
-            font-weight: 500;
-            margin: 0 10px;
-        }
-
-        .nav-link:hover {
-            color: var(--dark-blue) !important;
-        }
-
-        .event-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .price-tag {
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 60px 0;
-            }
-
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-        }
-
-        .developer-section {
-            border-left: 3px solid #ffc107;
-        }
-
-        .developer-section a:hover {
-            color: #ffc107 !important;
-            transform: scale(1.02);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #ffc107 !important;
-            transform: translateY(-3px);
-            transition: all 0.3s ease;
-        }
-
-    </style>
-</head>
-<body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('logo.png') }}" alt="Chorale MRDA" class="d-inline-block align-text-top" style="height: 40px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#events">{{ __('welcome.events') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">{{ __('welcome.about') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">{{ __('welcome.contact') }}</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-language me-1"></i>{{ config('app.available_locales')[app()->getLocale()] }}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                        @foreach(config('app.available_locales') as $code => $name)
-                            <li>
-                                <a class="dropdown-item {{ app()->getLocale() == $code ? 'active' : '' }}" 
-                                   href="{{ route('language.switch', $code) }}">
-                                    {{ $name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary-custom ms-2" href="{{ route('admin.login') }}">
-                        <i class="fas fa-sign-in-alt me-1"></i>{{ __('welcome.admin') }}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <div class="icon-wrapper" style="width: 120px; height: 120px; font-size: 3rem; margin-bottom: 30px;">
-                <i class="fas fa-music"></i>
-            </div>
-            <h1 class="display-3 fw-bold mb-4">{{ __('welcome.choir_name') }}</h1>
-            <p class="lead mb-5">
-                {{ __('welcome.hero_description') }}
-            </p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#events" class="btn btn-primary-custom btn-lg">
-                    <i class="fas fa-calendar-alt me-2"></i>{{ __('welcome.view_events') }}
-                </a>
-                <a href="#about" class="btn btn-outline-custom btn-lg">
-                    <i class="fas fa-info-circle me-2"></i>{{ __('welcome.learn_more') }}
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Stats Section -->
-<section class="stats-section">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-4 mb-4">
-                <div class="icon-wrapper">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <h3 class="fw-bold text-primary">{{ $stats['total_events'] }}+</h3>
-                <p class="text-muted">{{ __('welcome.events_organized') }}</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="icon-wrapper">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="fw-bold text-primary">{{ $stats['total_participants'] }}+</h3>
-                <p class="text-muted">{{ __('welcome.satisfied_participants') }}</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="icon-wrapper">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3 class="fw-bold text-primary">{{ $stats['years_experience'] }}+</h3>
-                <p class="text-muted">{{ __('welcome.years_experience') }}</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Events Section -->
-<section id="events" class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary">{{ __('welcome.upcoming_events') }}</h2>
-            <p class="lead text-muted">{{ __('welcome.upcoming_events_description') }}</p>
+@section('content')
+    <!-- Carrousel d'images héro -->
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @foreach($sliderImages as $index => $image)
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
+                        class="{{ $index === 0 ? 'active' : '' }}"></button>
+            @endforeach
         </div>
 
-        @if($upcomingEvents->count() > 0)
-            <div class="row">
-                @foreach($upcomingEvents as $event)
-                    <div class="col-lg-4 mb-4">
-                        <div class="event-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h4 class="fw-bold text-primary">{{ $event->name }}</h4>
-                                <span class="price-tag">${{ number_format($event->price, 2) }}</span>
-                            </div>
-
-                            <p class="text-muted mb-3">{{ Str::limit($event->description, 100) }}</p>
-
-                            <div class="mb-3">
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-calendar text-primary me-2"></i>
-                                    <span>{{ $event->event_date->format('d/m/Y') }}</span>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-clock text-primary me-2"></i>
-                                    <span>{{ $event->event_date->format('H:i') }}</span>
-                                </div>
-                            </div>
-
-                            <a href="{{ route('event.register', $event) }}"
-                               class="btn btn-primary-custom w-100">
-                                <i class="fas fa-ticket-alt me-2"></i>{{ __('welcome.register_now') }}
+        <div class="carousel-inner">
+            @forelse($sliderImages as $index => $image)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    <img src="{{ asset('images/' . basename($image->image_path)) }}" alt="{{ $image->title }}">
+                    <div class="carousel-overlay">
+                        <div class="carousel-content" data-aos="fade-up">
+                            <h1>{{ $image->title ?? 'Chorale MRDA' }}</h1>
+                            <p>{{ $image->description ?? 'Ensemble vocal dédié à la musique sacrée' }}</p>
+                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg">
+                                Découvrir notre histoire
                             </a>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        @else
-            <div class="text-center py-5">
-                <div class="icon-wrapper" style="margin-bottom: 30px;">
-                    <i class="fas fa-calendar-plus"></i>
                 </div>
-                <h4 class="text-muted">{{ __('welcome.no_events_scheduled') }}</h4>
-                <p class="text-muted">{{ __('welcome.new_events_soon') }}</p>
-            </div>
-        @endif
-    </div>
-</section>
+            @empty
+                <div class="carousel-item active">
+                    <img src="{{ asset('images/img_choir_02.jpg') }}" alt="Chorale MRDA">
+                    <div class="carousel-overlay">
+                        <div class="carousel-content" data-aos="fade-up">
+                            <h1>Chorale MRDA</h1>
+                            <p>Ensemble vocal dédié à la musique sacrée</p>
+                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg">
+                                Découvrir notre histoire
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/img_choir_03.jpg') }}" alt="Concert de la Chorale">
+                    <div class="carousel-overlay">
+                        <div class="carousel-content" data-aos="fade-up">
+                            <h1>Nos Concerts</h1>
+                            <p>Des performances qui touchent le cœur et l'âme</p>
+                            <a href="{{ route('gallery.index') }}" class="btn btn-musical btn-lg">
+                                Voir la galerie
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/img_choir_008.jpg') }}" alt="Répétitions">
+                    <div class="carousel-overlay">
+                        <div class="carousel-content" data-aos="fade-up">
+                            <h1>Rejoignez-Nous</h1>
+                            <p>Partagez votre passion pour la musique sacrée</p>
+                            <a href="{{ route('music.index') }}" class="btn btn-musical btn-lg">
+                                Écouter nos œuvres
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
+        </div>
 
-<!-- About Section -->
-<section id="about" class="py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h2 class="display-5 fw-bold text-primary mb-4">{{ __('welcome.about_choir') }}</h2>
-                <p class="lead mb-4">
-                    {{ __('welcome.about_description') }}
-                </p>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4" data-aos="fade-up">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="fw-bold">{{ $stats['total_events'] }}+</h3>
+                    <p>Événements organisés</p>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="fw-bold">{{ $stats['total_participants'] }}+</h3>
+                    <p>Participants satisfaits</p>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="fw-bold">{{ $stats['years_experience'] }}+</h3>
+                    <p>Années d'expérience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="page-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Événements à venir</h2>
+
+            @if($upcomingEvents->count() > 0)
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>{{ __('welcome.all_levels_accepted') }}</span>
+                    @foreach($upcomingEvents as $index => $event)
+                        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                            <div class="event-card card-animate">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h4 class="fw-bold text-primary">{{ $event->name }}</h4>
+                                    <span class="badge bg-warning text-dark">${{ number_format($event->price, 2) }}</span>
+                                </div>
+                                <p class="text-muted mb-3">{{ Str::limit($event->description, 100) }}</p>
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-calendar text-primary me-2"></i>
+                                        <span>{{ $event->event_date->format('d/m/Y') }}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-clock text-primary me-2"></i>
+                                        <span>{{ $event->event_date->format('H:i') }}</span>
+                                    </div>
+                                </div>
+                                <a href="{{ route('event.register', $event) }}" class="btn btn-musical w-100">
+                                    <i class="fas fa-ticket-alt me-2"></i>S'inscrire maintenant
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>{{ __('welcome.regular_events') }}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>{{ __('welcome.friendly_atmosphere') }}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-success me-2"></i>
-                            <span>{{ __('welcome.varied_repertoire') }}</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="text-center">
-                    <div class="icon-wrapper" style="width: 200px; height: 200px; font-size: 5rem; margin-bottom: 30px;">
-                        <i class="fas fa-microphone-alt"></i>
+            @else
+                <div class="text-center py-5" data-aos="fade-up">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <h4 class="text-muted">Aucun événement programmé</h4>
+                    <p class="text-muted">De nouveaux événements seront bientôt annoncés.</p>
+                </div>
+            @endif
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="page-section bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="section-title text-start">À propos de notre chorale</h2>
+                    <p class="lead mb-4">
+                        La Chorale MRDA est un ensemble vocal passionné, dédié à la beauté et à la spiritualité de la musique sacrée.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Tous niveaux acceptés</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Événements réguliers</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Ambiance chaleureuse</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Répertoire varié</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ route('about.index') }}" class="btn btn-musical">En savoir plus</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="text-center">
+                        <div class="icon-wrapper mx-auto" style="width: 200px; height: 200px; font-size: 5rem;">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Features Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary">{{ __('welcome.why_choose_us') }}</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card-custom feature-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-mobile-alt"></i>
+    <!-- Features Section -->
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Pourquoi nous choisir</h2>
+            <div class="row">
+                <div class="col-lg-4 mb-4" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="icon-wrapper mx-auto">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 class="fw-bold text-primary">Inscription facile</h4>
+                        <p class="text-muted">
+                            Inscrivez-vous rapidement à nos événements via notre plateforme intuitive.
+                        </p>
                     </div>
-                    <h4 class="fw-bold text-primary">{{ __('welcome.easy_registration') }}</h4>
-                    <p class="text-muted">
-                        {{ __('welcome.easy_registration_desc') }}
-                    </p>
                 </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card-custom feature-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="icon-wrapper mx-auto">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="fw-bold text-primary">Paiement sécurisé</h4>
+                        <p class="text-muted">
+                            Vos paiements sont protégés par des systèmes de sécurité avancés.
+                        </p>
                     </div>
-                    <h4 class="fw-bold text-primary">{{ __('welcome.secure_payment') }}</h4>
-                    <p class="text-muted">
-                        {{ __('welcome.secure_payment_desc') }}
-                    </p>
                 </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card-custom feature-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <h4 class="fw-bold text-primary">{{ __('welcome.notifications') }}</h4>
-                    <p class="text-muted">
-                        {{ __('welcome.notifications_desc') }}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="py-5 bg-primary text-white">
-    <div class="container text-center">
-        <h2 class="display-5 fw-bold mb-4">{{ __('welcome.contact_us') }}</h2>
-        <p class="lead mb-4">{{ __('welcome.contact_question') }}</p>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-envelope fa-2x mb-2"></i>
-                        <div>{{ __('welcome.email') }}</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-phone fa-2x mb-2"></i>
-                        <div>{{ __('welcome.phone') }}</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-map-marker-alt fa-2x mb-2"></i>
-                        <div>{{ __('welcome.location') }}</div>
+                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="icon-wrapper mx-auto">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h4 class="fw-bold text-primary">Notifications</h4>
+                        <p class="text-muted">
+                            Restez informé de tous nos événements et actualités.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer class="bg-dark text-white py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 mb-4 text-center">
-                <h5 class="fw-bold mb-3">
-                    <img src="{{ asset('logo.png') }}" alt="Chorale MRDA" class="d-inline-block align-text-top" style="height: 100px;">
-                </h5>
-                <p class="text-muted">
-                    {{ __('welcome.footer_description') }}
-                </p>
-                <div class="social-links">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mb-4 ">
-                <h5 class="fw-bold mb-3">{{ __('welcome.contact') }}</h5>
-                <div class="contact-info">
-                    <p class="mb-2">
-                        <i class="fas fa-envelope me-2"></i>
-                        {{ __('welcome.email') }}
-                    </p>
-                    <p class="mb-2">
-                        <i class="fas fa-phone me-2"></i>
-                        {{ __('welcome.phone') }}
-                    </p>
-                    <p class="mb-0">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        {{ __('welcome.location') }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mb-4 text-center">
-                <h5 class="fw-bold mb-3">
-                    <i class="fas fa-code me-2"></i>{{ __('welcome.development') }}
-                </h5>
-                <div class="developer-section p-3 rounded" style="background: rgba(255, 255, 255, 0.05);">
-                    <p class="text-muted mb-2">{{ __('welcome.created_by') }}</p>
-                    <a href="https://parfaittedomtedom.com" target="_blank"
-                       class="text-white text-decoration-none d-block mb-2">
-                        <strong class="fs-5">Parfait Tedom Tedom ( Développeur Web Senior , Baryton Basse à MRDA )</strong>
+    <!-- Contact Section -->
+    <section class="contact-section page-section">
+        <div class="container text-center">
+            <h2 class="section-title" data-aos="fade-up">Contactez-nous</h2>
+            <p class="lead mb-4 text-dark" data-aos="fade-up" data-aos-delay="100">
+                Une question ? Envie de nous rejoindre ? N'hésitez pas à nous contacter !
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
+                            <i class="fas fa-envelope fa-2x mb-2 text-primary"></i>
+                            <div class="text-dark">contact@chorale-mrda.com</div>
+                        </div>
+                        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
+                            <i class="fas fa-phone fa-2x mb-2 text-primary"></i>
+                            <div class="text-dark">+243 123 456 789</div>
+                        </div>
+                        <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="400">
+                            <i class="fas fa-map-marker-alt fa-2x mb-2 text-primary"></i>
+                            <div class="text-dark">Kinshasa, RDC</div>
+                        </div>
+                    </div>
+                    <a href="{{ route('contact.index') }}" class="btn btn-musical mt-4" data-aos="fade-up" data-aos-delay="500">
+                        Nous contacter
                     </a>
-                    <a href="https://parfaittedomtedom.com" target="_blank"
-                       class="btn btn-outline-light btn-sm">
-                        <i class="fas fa-globe me-1"></i>
-                        parfaittedomtedom.com
-                    </a>
-                    <div class="mt-2">
-                        <small class="text-muted">
-                            <i class="fas fa-shield-alt me-1"></i>
-                            {{ __('welcome.professional_development') }}
-                        </small>
-                    </div>
                 </div>
             </div>
         </div>
+    </section>
+@endsection
 
-        <hr class="my-4 opacity-25">
-
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <p class="mb-0">&copy; {{ date('Y') }} Chorale MRDA. {{ __('welcome.all_rights_reserved') }}</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <small class="text-muted">
-                    {{ __('welcome.developed_with_love') }}
-                    <a href="https://parfaittedomtedom.com" target="_blank" class="text-white">
-                        Parfait Tedom Tedom
-                    </a>
-                </small>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@push('scripts')
+@livewireScripts
 <script>
-    // Smooth scrolling pour les liens d'ancrage
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    // Initialiser AOS (Animate On Scroll)
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
         });
-    });
 
-    // Navbar transparence au scroll
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar-custom');
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        // Initialiser le carousel avec auto-scroll amélioré
+        const carousel = document.querySelector('#heroCarousel');
+        if (carousel && typeof bootstrap !== 'undefined') {
+            const heroCarousel = new bootstrap.Carousel(carousel, {
+                interval: 4000,
+                wrap: true,
+                pause: false, // Ne pas s'arrêter au hover
+                keyboard: true,
+                touch: true
+            });
+
+            // Démarrer immédiatement le carousel
+            heroCarousel.cycle();
+            
+            // Forcer la rotation continue
+            setInterval(() => {
+                if (heroCarousel && !document.hidden) {
+                    heroCarousel.next();
+                }
+            }, 4500);
+
+            // Reprendre quand la page devient visible
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    heroCarousel.cycle();
+                }
+            });
         }
     });
 </script>
-</body>
-</html>
+@endpush
