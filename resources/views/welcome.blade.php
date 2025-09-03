@@ -18,6 +18,12 @@
     .carousel-item {
         height: 80vh;
         position: relative;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+
+    .carousel-item.active {
+        opacity: 1;
     }
 
     .carousel-item img {
@@ -52,6 +58,15 @@
         text-align: center;
         color: white;
         z-index: 2;
+        transform: translateY(30px);
+        opacity: 0;
+        transition: all 0.8s ease-out;
+    }
+
+    .carousel-item.active .carousel-content {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.3s;
     }
 
     .carousel-content h1 {
@@ -59,6 +74,15 @@
         font-weight: bold;
         margin-bottom: 20px;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.6s ease-out;
+    }
+
+    .carousel-item.active .carousel-content h1 {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.5s;
         animation: textGlow 3s ease-in-out infinite alternate;
     }
 
@@ -71,6 +95,28 @@
         font-size: 1.3rem;
         margin-bottom: 30px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.6s ease-out;
+    }
+
+    .carousel-item.active .carousel-content p {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.7s;
+    }
+
+    /* Animation pour les boutons du slider */
+    .slide-btn {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.6s ease-out;
+    }
+
+    .carousel-item.active .slide-btn {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.9s;
     }
 
     /* Cartes d'événements avec animations */
@@ -197,7 +243,16 @@
     /* Responsive */
     @media (max-width: 768px) {
         .carousel-content h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
+        }
+        
+        .carousel-content p {
+            font-size: 1.1rem;
+        }
+        
+        .slide-btn {
+            font-size: 0.9rem;
+            padding: 10px 20px;
         }
 
         .hero-carousel, .carousel-item {
@@ -210,12 +265,34 @@
             font-size: 1.5rem;
         }
     }
+    
+    @media (max-width: 480px) {
+        .carousel-content h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .carousel-content p {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+        
+        .slide-btn {
+            font-size: 0.85rem;
+            padding: 8px 16px;
+        }
+        
+        .hero-carousel, .carousel-item {
+            height: 50vh;
+        }
+    }
 </style>
 @endpush
 
 @section('content')
     <!-- Carrousel d'images héro -->
-    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-indicators">
             @foreach($sliderImages as $index => $image)
                 <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
@@ -231,7 +308,7 @@
                         <div class="carousel-content" data-aos="fade-up">
                             <h1>{{ $image->title ?? 'Chorale MRDA' }}</h1>
                             <p>{{ $image->description ?? 'Ensemble vocal dédié à la musique sacrée' }}</p>
-                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg">
+                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg slide-btn">
                                 Découvrir notre histoire
                             </a>
                         </div>
@@ -244,7 +321,7 @@
                         <div class="carousel-content" data-aos="fade-up">
                             <h1>Chorale MRDA</h1>
                             <p>Ensemble vocal dédié à la musique sacrée</p>
-                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg">
+                            <a href="{{ route('about.index') }}" class="btn btn-musical btn-lg slide-btn">
                                 Découvrir notre histoire
                             </a>
                         </div>
@@ -256,7 +333,7 @@
                         <div class="carousel-content" data-aos="fade-up">
                             <h1>Nos Concerts</h1>
                             <p>Des performances qui touchent le cœur et l'âme</p>
-                            <a href="{{ route('gallery.index') }}" class="btn btn-musical btn-lg">
+                            <a href="{{ route('gallery.index') }}" class="btn btn-musical btn-lg slide-btn">
                                 Voir la galerie
                             </a>
                         </div>
@@ -268,7 +345,7 @@
                         <div class="carousel-content" data-aos="fade-up">
                             <h1>Rejoignez-Nous</h1>
                             <p>Partagez votre passion pour la musique sacrée</p>
-                            <a href="{{ route('music.index') }}" class="btn btn-musical btn-lg">
+                            <a href="{{ route('music.index') }}" class="btn btn-musical btn-lg slide-btn">
                                 Écouter nos œuvres
                             </a>
                         </div>
@@ -277,11 +354,13 @@
             @endforelse
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
+        <button class="carousel-control-prev" type="button" id="prevBtn">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Précédent</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
+        <button class="carousel-control-next" type="button" id="nextBtn">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Suivant</span>
         </button>
     </div>
 
@@ -491,34 +570,102 @@
             once: true,
         });
 
-        // Initialiser le carousel avec auto-scroll amélioré
+        // Carousel JavaScript custom (sans dépendance Bootstrap)
+        let currentSlide = 0;
+        let autoSlideInterval;
+        
         const carousel = document.querySelector('#heroCarousel');
-        if (carousel && typeof bootstrap !== 'undefined') {
-            const heroCarousel = new bootstrap.Carousel(carousel, {
-                interval: 4000,
-                wrap: true,
-                pause: false, // Ne pas s'arrêter au hover
-                keyboard: true,
-                touch: true
-            });
-
-            // Démarrer immédiatement le carousel
-            heroCarousel.cycle();
+        const slides = carousel.querySelectorAll('.carousel-item');
+        const indicators = carousel.querySelectorAll('.carousel-indicators button');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        console.log(`Found ${slides.length} slides`);
+        
+        function showSlide(index) {
+            // Animation de sortie pour le slide actuel
+            const currentActiveSlide = carousel.querySelector('.carousel-item.active');
+            if (currentActiveSlide && currentActiveSlide !== slides[index]) {
+                currentActiveSlide.style.opacity = '0';
+            }
             
-            // Forcer la rotation continue
-            setInterval(() => {
-                if (heroCarousel && !document.hidden) {
-                    heroCarousel.next();
+            // Petite pause pour la transition
+            setTimeout(() => {
+                // Retirer les classes active de tous les slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                });
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // Ajouter active au slide courant
+                slides[index].classList.add('active');
+                slides[index].style.opacity = '1';
+                
+                if (indicators[index]) {
+                    indicators[index].classList.add('active');
                 }
-            }, 4500);
-
-            // Reprendre quand la page devient visible
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    heroCarousel.cycle();
-                }
+                
+                console.log(`Showing slide ${index}`);
+            }, 100);
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 4000); // 4 secondes
+            console.log('Auto-slide started');
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+        
+        // Event listeners pour les boutons
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide(); // Redémarrer l'auto-slide
             });
         }
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide(); // Redémarrer l'auto-slide
+            });
+        }
+        
+        // Event listeners pour les indicateurs
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                stopAutoSlide();
+                currentSlide = index;
+                showSlide(currentSlide);
+                startAutoSlide(); // Redémarrer l'auto-slide
+            });
+        });
+        
+        // Démarrer l'auto-slide si on a des slides
+        if (slides.length > 1) {
+            startAutoSlide();
+        }
+        
+        // Pause au hover
+        carousel.addEventListener('mouseenter', stopAutoSlide);
+        carousel.addEventListener('mouseleave', startAutoSlide);
+        
+        console.log('Custom carousel initialized successfully');
     });
 </script>
 @endpush

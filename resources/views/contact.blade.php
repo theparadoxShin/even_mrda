@@ -3,50 +3,54 @@
 @section('title', 'Contact - Chorale MRDA')
 
 @section('content')
-<div class="contact-page">
-    <!-- Hero Section -->
-    <section class="hero-contact">
+    <!-- En-tête de page -->
+    <div class="page-header">
         <div class="container">
-            <div class="row align-items-center min-vh-50">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <h1 class="display-4 text-white mb-4">
-                        <i class="fas fa-envelope-open-text me-3"></i>
-                        Contactez-nous
-                    </h1>
-                    <p class="lead text-white-75 mb-4">
-                        Nous serions ravis d'entendre de vous ! Que ce soit pour rejoindre notre chorale,
-                        organiser un événement ou simplement poser une question.
-                    </p>
-                    <div class="contact-info">
-                        <div class="info-item mb-3" data-aos="fade-up" data-aos-delay="100">
-                            <i class="fas fa-map-marker-alt text-warning me-3"></i>
-                            <span class="text-white">123 Rue de la Musique, Kinshasa, RDC</span>
-                        </div>
-                        <div class="info-item mb-3" data-aos="fade-up" data-aos-delay="200">
-                            <i class="fas fa-phone text-warning me-3"></i>
-                            <span class="text-white">+243 123 456 789</span>
-                        </div>
-                        <div class="info-item mb-3" data-aos="fade-up" data-aos-delay="300">
-                            <i class="fas fa-envelope text-warning me-3"></i>
-                            <span class="text-white">contact@chorale-mrda.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-                    <div class="musical-animation">
-                        <i class="fas fa-music note-1"></i>
-                        <i class="fas fa-music note-2"></i>
-                        <i class="fas fa-music note-3"></i>
-                        <i class="fas fa-music note-4"></i>
-                    </div>
-                </div>
-            </div>
+            <h1 class="page-title animate-fadeInUp">
+                <i class="fas fa-envelope me-3"></i>Contactez-nous
+            </h1>
+            <p class="lead animate-fadeInUp">Nous serions ravis d'entendre de vous !</p>
         </div>
-    </section>
+    </div>
+
+<div class="contact-page">
 
     <!-- Contact Form & Map Section -->
     <section class="contact-content py-5">
         <div class="container">
+            <!-- Informations de contact -->
+            <div class="contact-info-section mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-3" data-aos="fade-up">
+                        <div class="info-card text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h5>Notre Adresse</h5>
+                            <p class="text-muted">5366 Chem. de la côte des neiges<br>Montréal, QC, Canada</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="info-card text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h5>Téléphone</h5>
+                            <p class="text-muted">+1 (514) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="info-card text-center">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h5>Email</h5>
+                            <p class="text-muted">contact@chorale-mrda.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- Formulaire de contact -->
                 <div class="col-lg-6 mb-5" data-aos="fade-up">
@@ -140,7 +144,7 @@
                         </h3>
                         <div class="map-container">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.8158108983567!2d15.2663156!3d-4.3276274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a314897e4c533%3A0x8c42cefaa3b37c9!2sKinshasa%2C%20Democratic%20Republic%20of%20the%20Congo!5e0!3m2!1sen!2sus!4v1699123456789!5m2!1sen!2sus"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.8234056738347!2d-73.63079892415827!3d45.50196547107634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a4c8c3b52e3%3A0x8b9b4b3e4b3e4b3e!2s5366%20Chem.%20de%20la%20C%C3%B4te-des-Neiges%2C%20Montr%C3%A9al%2C%20QC%20H3T%201Y8%2C%20Canada!5e0!3m2!1sfr!2sca!4v1699123456789!5m2!1sfr!2sca"
                                 width="100%"
                                 height="400"
                                 style="border:0; border-radius: 15px;"
@@ -158,8 +162,8 @@
                                         <i class="fas fa-clock text-primary mb-2"></i>
                                         <h6>Horaires de répétition</h6>
                                         <p class="text-muted mb-0">
-                                            Mardi & Jeudi<br>
-                                            18h00 - 20h00
+                                            Mardi & Vendredi<br>
+                                            19h00 - 21h00
                                         </p>
                                     </div>
                                 </div>
@@ -169,7 +173,7 @@
                                         <h6>Services dominicaux</h6>
                                         <p class="text-muted mb-0">
                                             Dimanche<br>
-                                            9h00 & 11h00
+                                            10h00 & 17h00
                                         </p>
                                     </div>
                                 </div>
@@ -227,49 +231,78 @@
 @push('styles')
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
-.hero-contact {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+.page-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    padding: 100px 0 80px;
+    text-align: center;
     position: relative;
     overflow: hidden;
 }
 
-.hero-contact::before {
+.page-header::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    animation: float 20s infinite linear;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+    background-size: 50px 50px;
+    animation: musicNote 3s ease-in-out infinite;
 }
 
-@keyframes float {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-20px) rotate(360deg); }
+.page-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.musical-animation {
-    position: relative;
-    height: 300px;
+@keyframes musicNote {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
-.musical-animation i {
-    position: absolute;
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.3);
-    animation: musicFloat 4s infinite ease-in-out;
+.contact-info-section {
+    margin: 60px 0;
 }
 
-.note-1 { top: 20%; left: 20%; animation-delay: 0s; }
-.note-2 { top: 60%; left: 60%; animation-delay: 1s; }
-.note-3 { top: 40%; left: 80%; animation-delay: 2s; }
-.note-4 { top: 80%; left: 30%; animation-delay: 3s; }
-
-@keyframes musicFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-    50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+.info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 2px solid transparent;
 }
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border-color: var(--primary-blue);
+}
+
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover .icon-wrapper {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+}
+
 
 .contact-form-wrapper,
 .map-wrapper {
@@ -290,23 +323,49 @@
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #2563eb;
+    border-color: var(--primary-blue);
     box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 8px;
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
     border: none;
-    border-radius: 15px;
-    padding: 15px 30px;
+    border-radius: 50px;
+    padding: 15px 40px;
     font-weight: 600;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.submit-btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
 }
 
 .map-container {
@@ -341,30 +400,42 @@
 .feature-item {
     padding: 2rem 1rem;
     transition: transform 0.3s ease;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
 }
 
 .feature-item:hover {
     transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
 .feature-item i {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
 }
 
-.info-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    transition: transform 0.3s ease;
+.feature-item h6 {
+    color: var(--dark-blue);
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
-.info-item:hover {
-    transform: translateX(10px);
+
+/* Animations */
+.animate-fadeInUp {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
 }
 
-/* Animations de texte */
-.text-white-75 {
-    color: rgba(255, 255, 255, 0.85);
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive */

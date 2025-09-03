@@ -1,5 +1,5 @@
 <!-- Footer Component -->
-<footer class="bg-dark text-white py-5 footer-custom">
+<footer class="bg-dark text-white py-4 footer-custom">
     <div class="container">
         <div class="row">
             <!-- Logo et description -->
@@ -7,7 +7,7 @@
                 <h5 class="fw-bold mb-3">
                     <img src="{{ asset('logo.png') }}" alt="Chorale MRDA" class="footer-logo">
                 </h5>
-                <p class="text-muted mb-4">
+                <p class="mb-4">
                     La Chorale MRDA - Ensemble vocal dédié à la musique sacrée,
                     touchant les cœurs et élevant les âmes par la beauté du chant choral.
                 </p>
@@ -28,7 +28,7 @@
             </div>
 
             <!-- Liens rapides -->
-            <div class="col-lg-2 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-4 col-md-6 mb-4 text-center" data-aos="fade-up" data-aos-delay="100">
                 <h6 class="fw-bold mb-3 text-uppercase text-warning">
                     <i class="fas fa-link me-2"></i>Navigation
                 </h6>
@@ -42,7 +42,7 @@
             </div>
 
             <!-- Contact -->
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                 <h6 class="fw-bold mb-3 text-uppercase text-warning">
                     <i class="fas fa-address-book me-2"></i>Contact
                 </h6>
@@ -66,41 +66,14 @@
                 </div>
             </div>
 
-            <!-- Développeur -->
-            <div class="col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <h6 class="fw-bold mb-3 text-uppercase text-warning">
-                    <i class="fas fa-code me-2"></i>Développement
-                </h6>
-                <div class="developer-section p-3 rounded bg-dark-subtle">
-                    <p class="text-muted mb-2 small">Développé avec ❤️ par</p>
-                    <a href="https://parfaittedomtedom.com" target="_blank"
-                       class="text-white text-decoration-none d-block mb-2 fw-bold">
-                        Parfait Tedom Tedom
-                    </a>
-                    <p class="small text-muted mb-3">
-                        Développeur Web Senior & Baryton Basse à MRDA
-                    </p>
-                    <a href="https://parfaittedomtedom.com" target="_blank"
-                       class="btn btn-outline-warning btn-sm developer-btn">
-                        <i class="fas fa-globe me-1"></i>
-                        parfaittedomtedom.com
-                    </a>
-                    <div class="mt-2">
-                        <small class="text-muted">
-                            <i class="fas fa-shield-alt me-1"></i>
-                            Développement professionnel & sécurisé
-                        </small>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <hr class="my-3 opacity-25">
 
         <!-- Copyright -->
         <div class="text-center py-2" data-aos="fade-up" data-aos-delay="400">
-            <small class="text-muted opacity-75" style="font-size: 0.75rem;">
-                &copy; {{ date('Y') }} Chorale MRDA • 
+            <small class="opacity-75" style="font-size: 0.75rem;">
+                &copy; {{ date('Y') }} Chorale MRDA •
                 Développé par <a href="https://parfaittedomtedom.com" target="_blank" class="text-warning text-decoration-none opacity-75">Parfait Tedom Tedom</a>
             </small>
         </div>

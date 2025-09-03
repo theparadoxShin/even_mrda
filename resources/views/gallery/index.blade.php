@@ -147,21 +147,38 @@
         margin-bottom: 60px;
     }
 
-    .featured-title {
+    .section-title {
         text-align: center;
         font-size: 2.5rem;
         color: var(--dark-blue);
-        margin-bottom: 40px;
+        margin-bottom: 3rem;
         position: relative;
+        font-weight: 600;
     }
 
-    .featured-title::after {
-        content: '📸';
+    .section-title::after {
+        content: '';
         position: absolute;
-        bottom: -20px;
+        bottom: -10px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 2rem;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(135deg, var(--primary-blue), var(--gold));
+        border-radius: 2px;
+        animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+        0%, 100% { 
+            transform: translateX(-50%) scaleX(1);
+            opacity: 0.8;
+        }
+        50% { 
+            transform: translateX(-50%) scaleX(1.2);
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+        }
     }
 </style>
 @endpush
@@ -179,7 +196,7 @@
         <!-- Images mises en avant -->
         @if($featuredImages->count() > 0)
         <section class="featured-section">
-            <h2 class="featured-title animate-fadeInUp">Images à la Une</h2>
+            <h2 class="section-title animate-fadeInUp">Images à la Une</h2>
             <div class="gallery-grid">
                 @foreach($featuredImages as $image)
                 <div class="gallery-item animate-fadeInUp">
@@ -233,7 +250,7 @@
 
         <!-- Galerie complète -->
         <section>
-            <h2 class="featured-title animate-fadeInUp">Toutes nos Photos</h2>
+            <h2 class="section-title animate-fadeInUp">Galerie Complète</h2>
             <div class="gallery-grid" id="galleryContainer">
                 @forelse($allImages as $image)
                 <div class="gallery-item animate-fadeInUp" data-category="{{ $image->category ?? 'other' }}">

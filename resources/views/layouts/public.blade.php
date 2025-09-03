@@ -170,7 +170,7 @@
         }
 
         .loading-musical-icon {
-            font-size: 4rem;
+            font-size: 6rem;
             color: var(--gold);
             animation: musicBounce 1.5s ease-in-out infinite;
             margin-bottom: 1rem;

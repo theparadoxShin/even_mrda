@@ -5,30 +5,25 @@
 
 @push('styles')
 <style>
-    .hero-about {
+    .page-header {
         background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
         color: white;
-        padding: 100px 0;
+        padding: 100px 0 80px;
         text-align: center;
         position: relative;
         overflow: hidden;
     }
 
-    .hero-about::before {
+    .page-header::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,30 Q40,10 50,30 T70,30" stroke="white" stroke-width="2" fill="none" opacity="0.1"/></svg>');
-        background-size: 80px 80px;
-        animation: musicNote 6s ease-in-out infinite;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+        background-size: 50px 50px;
+        animation: musicNote 3s ease-in-out infinite;
     }
 
     .choir-info-card {
@@ -219,38 +214,17 @@
 @endpush
 
 @section('content')
-    <!-- Hero Section -->
-    <div class="hero-about">
+    <!-- En-tête de page -->
+    <div class="page-header">
         <div class="container">
-            <div class="hero-content animate-fadeInUp">
-                <h1 class="display-4 fw-bold mb-4">{{ $choirInfo['name'] }}</h1>
-                <p class="lead mb-4">{{ $choirInfo['description'] }}</p>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="voice-icons">
-                            <div class="voice-icon">
-                                <div class="voice-symbol">🎼</div>
-                                <div>Soprano</div>
-                            </div>
-                            <div class="voice-icon">
-                                <div class="voice-symbol">🎵</div>
-                                <div>Alto</div>
-                            </div>
-                            <div class="voice-icon">
-                                <div class="voice-symbol">🎶</div>
-                                <div>Ténor</div>
-                            </div>
-                            <div class="voice-icon">
-                                <div class="voice-symbol">🎹</div>
-                                <div>Basse</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1 class="page-title animate-fadeInUp">
+                <i class="fas fa-calendar-alt me-3"></i>{{ $choirInfo['name'] }}
+            </h1>
+            <p class="lead animate-fadeInUp">{{ $choirInfo['description'] }}</p>
         </div>
     </div>
 
+    <!-- Section principale -->
     <div class="container">
         <!-- Informations sur la chorale -->
         <section class="section">
@@ -359,17 +333,17 @@
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
                                 <div><strong>Email</strong></div>
-                                <div>contact@mrda-chorale.com</div>
+                                <div>contact@chorale-mrda.com</div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-phone fa-2x text-primary mb-2"></i>
                                 <div><strong>Téléphone</strong></div>
-                                <div>+33 1 23 45 67 89</div>
+                                <div>+1 (514) 123-4567</div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-map-marker-alt fa-2x text-primary mb-2"></i>
                                 <div><strong>Adresse</strong></div>
-                                <div>Paris, France</div>
+                                <div>5366 Chem. de la côte des neiges,Montréal, QC, Canada</div>
                             </div>
                         </div>
                     </div>

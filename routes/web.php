@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\EventController;
 
 // Language routes
 Route::get('/language/{locale}', function ($locale) {
@@ -38,6 +39,10 @@ Route::get('/a-propos', [AboutController::class, 'index'])->name('about.index');
 // Route pour la page Contact
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact.index');
 Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact.submit');
+
+// Routes pour la page des événements
+Route::get('/evenements', [EventController::class, 'index'])->name('events.index');
+Route::get('/evenement/{event}', [EventController::class, 'show'])->name('events.show');
 
 // Routes pour les événements
 Route::get('/event/{event}/register', [PublicController::class, 'showRegistrationForm'])->name('event.register');

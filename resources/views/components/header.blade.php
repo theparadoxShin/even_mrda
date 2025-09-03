@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#events" onclick="scrollToEvents()">
+                    <a class="nav-link {{ request()->routeIs('events.*') ? 'active' : '' }}" href="{{ route('events.index') }}">
                         <i class="fas fa-calendar me-1"></i>Événements
                     </a>
                 </li>

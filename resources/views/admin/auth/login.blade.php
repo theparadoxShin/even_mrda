@@ -2,6 +2,20 @@
 
 @section('title', 'Connexion Admin')
 
+@push('styles')
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
+        }
+        .navbar-custom, .sidebar {
+            display: none;
+        }
+        .main-content {
+            padding: 0 !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="container-fluid vh-100 d-flex align-items-center justify-content-center"
          style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);">
@@ -61,17 +75,3 @@
         </div>
     </div>
 @endsection
-
-@push('styles')
-    <style>
-        body {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
-        }
-        .navbar-custom, .sidebar {
-            display: none;
-        }
-        .main-content {
-            padding: 0 !important;
-        }
-    </style>
-@endpush

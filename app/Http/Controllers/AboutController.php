@@ -10,51 +10,36 @@ class AboutController extends Controller
     {
         // Informations sur la chorale MRDA
         $choirInfo = [
-            'name' => 'Chorale MRDA',
-            'founded' => '2015',
-            'director' => 'Maître Jean-Baptiste Martin',
+            'name' => 'Chorale Marie Reine Des Apôtres (MRDA)',
+            'founded' => '2017',
+            'director' => 'Gillis',
             'members_count' => 45,
-            'description' => 'La Chorale MRDA est un ensemble vocal passionné dédié à la musique sacrée et classique. Fondée en 2015, elle rassemble des chanteurs de tous horizons unis par l\'amour de la musique religieuse.',
+            'description' => 'La Chorale MRDA est un ensemble vocal passionné dédié à la musique, la louage et l\'adoration sacrée. Fondée en 2017, elle rassemble des chanteurs de tous horizons unis par l\'amour de la musique religieuse et de Christ',
             'mission' => 'Notre mission est de partager la beauté de la musique sacrée et d\'enrichir la vie spirituelle de notre communauté à travers des concerts et des célébrations liturgiques.'
         ];
 
-        // Membres actuels de la chorale (vous pouvez les modifier selon vos besoins)
         $members = [
             [
-                'name' => 'Jean-Baptiste Martin',
+                'name' => 'Gillis',
                 'role' => 'Chef de Chœur',
                 'voice' => 'Direction',
-                'years' => 10,
-                'bio' => 'Diplômé du Conservatoire, Jean-Baptiste dirige la chorale avec passion depuis sa création.'
-            ],
-            [
-                'name' => 'Marie Dubois',
-                'role' => 'Soprano Solo',
-                'voice' => 'Soprano',
                 'years' => 8,
-                'bio' => 'Soliste reconnue, Marie apporte sa voix cristalline aux œuvres les plus exigeantes.'
+                'bio' => 'Pianiste et maitre de choeur, Gillis dirige la chorale avec passion depuis sa création.'
             ],
             [
-                'name' => 'Pierre Lefebvre',
-                'role' => 'Ténor Principal',
-                'voice' => 'Ténor',
-                'years' => 6,
-                'bio' => 'Professeur de musique, Pierre enrichit le chœur de son expérience pédagogique.'
+                'name' => 'Harrold',
+                'role' => 'Assistant chef de choeur',
+                'voice' => 'Baryton Tenor',
+                'years' => 8,
+                'bio' => 'Assistant à la direction musicale, Soliste reconnue, apporte sa voix et technique aux œuvres les plus exigeantes.'
             ],
             [
-                'name' => 'Sophie Moreau',
-                'role' => 'Alto',
-                'voice' => 'Alto',
-                'years' => 5,
-                'bio' => 'Musicienne polyvalente, Sophie contribue également aux arrangements musicaux.'
+                'name' => 'Pamella',
+                'role' => 'Soprano',
+                'voice' => 'Soprano',
+                'years' => 4,
+                'bio' => 'Soprano, Pamella contribue également à la communication digitale de la chorale.'
             ],
-            [
-                'name' => 'Thomas Bernard',
-                'role' => 'Basse',
-                'voice' => 'Basse',
-                'years' => 7,
-                'bio' => 'Voix profonde et chaleureuse, Thomas ancre solidement les harmonies du chœur.'
-            ]
         ];
 
         // Réalisations et concerts marquants
