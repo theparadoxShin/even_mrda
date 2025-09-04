@@ -174,7 +174,45 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 col-lg-2 p-0">
+            <div class="sidebar">
+                <div class="p-3">
+                    <h6 class="text-white-50 text-uppercase mb-3">Navigation</h6>
+                    <nav class="nav flex-column">
+                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Tableau de bord
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('admin.slider.*') ? 'active' : '' }}" href="{{ route('admin.slider.index') }}">
+                            <i class="fas fa-images me-2"></i>
+                            Slider
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}" href="{{ route('admin.gallery.index') }}">
+                            <i class="fas fa-photo-video me-2"></i>
+                            Galerie
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('admin.music.*') ? 'active' : '' }}" href="{{ route('admin.music.index') }}">
+                            <i class="fas fa-music me-2"></i>
+                            Musique
+                        </a>
+                        <hr class="border-light">
+                        <a class="nav-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}" href="{{ route('admin.profile.index') }}">
+                            <i class="fas fa-cog me-2"></i>
+                            Configuration
+                        </a>
+                        <hr class="border-light">
+                        <a class="nav-link" href="{{ url('/') }}" target="_blank">
+                            <i class="fas fa-external-link-alt me-2"></i>
+                            Voir le site
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
             <div class="main-content">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -2,6 +2,20 @@
 
 @section('title', 'Connexion Admin')
 
+@push('styles')
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
+        }
+        .navbar-custom, .sidebar {
+            display: none;
+        }
+        .main-content {
+            padding: 0 !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="container-fluid vh-100 d-flex align-items-center justify-content-center"
          style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);">
@@ -49,29 +63,6 @@
                 </form>
             </div>
 
-            <div class="text-center mt-4 pt-3 border-top">
-                <small class="text-muted d-block mb-2">Application développée par</small>
-                <a href="https://parfaittedomtedom.com" target="_blank"
-                   class="text-primary text-decoration-none fw-bold">
-                    <i class="fas fa-code me-1"></i>
-                    Parfait Tedom Tedom
-                </a>
-            </div>
-
         </div>
     </div>
 @endsection
-
-@push('styles')
-    <style>
-        body {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
-        }
-        .navbar-custom, .sidebar {
-            display: none;
-        }
-        .main-content {
-            padding: 0 !important;
-        }
-    </style>
-@endpush

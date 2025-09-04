@@ -7,7 +7,6 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <!-- Récapitulatif -->
             <div class="event-info">
                 <div class="row align-items-center">
                     <div class="col-md-8">

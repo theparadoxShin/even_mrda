@@ -1,0 +1,125 @@
+/* Curseur musical personnalisé */
+body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="%23555" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>'), auto;
+}
+
+/* Curseur pour les liens et boutons */
+a, button, .btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="%232563eb" d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>'), pointer;
+}
+
+/* Animations fluides globales */
+* {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+/* Amélioration de la lisibilité du texte */
+body, p, h1, h2, h3, h4, h5, h6 {
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: 0.025em;
+    line-height: 1.6;
+}
+
+/* Corrections des icônes pour éviter l'étirement */
+i.fas, i.fa {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+    font-size: 1em;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Amélioration des images pour éviter la distorsion */
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    image-rendering: optimizeQuality;
+}
+
+/* Animations d'entrée */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes musicNote {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fadeInLeft {
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+.animate-fadeInRight {
+    animation: fadeInRight 0.8s ease-out;
+}
+
+.music-note-float {
+    animation: musicNote 2s ease-in-out infinite;
+}
+
+/* Contrôles de musique flottants */
+.music-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(37, 99, 235, 0.9);
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.music-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.music-controls button:hover {
+    transform: scale(1.2);
+    color: #dbeafe;
+}
