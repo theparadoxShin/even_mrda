@@ -218,9 +218,11 @@
     <div class="page-header">
         <div class="container">
             <h1 class="page-title animate-fadeInUp">
-                <i class="fas fa-calendar-alt me-3"></i>{{ $choirInfo['name'] }}
+                Notre Histoire
             </h1>
-            <p class="lead animate-fadeInUp">{{ $choirInfo['description'] }}</p>
+            <h1 class="page-title animate-fadeInUp">
+                {{ $choirInfo['name'] }}
+            </h1>
         </div>
     </div>
 

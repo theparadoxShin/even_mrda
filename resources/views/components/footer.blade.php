@@ -1,5 +1,5 @@
 <!-- Footer Component -->
-<footer class="bg-dark text-white py-4 footer-custom">
+<footer class="bg-dark text-white py-5 footer-custom">
     <div class="container">
         <div class="row">
             <!-- Logo et description -->
@@ -71,10 +71,10 @@
         <hr class="my-3 opacity-25">
 
         <!-- Copyright -->
-        <div class="text-center py-2" data-aos="fade-up" data-aos-delay="400">
-            <small class="opacity-75" style="font-size: 0.75rem;">
+        <div class="text-center py-3" data-aos="fade-up" data-aos-delay="400">
+            <small class="opacity-90" style="font-size: 0.85rem;">
                 &copy; {{ date('Y') }} Chorale MRDA •
-                Développé par <a href="https://parfaittedomtedom.com" target="_blank" class="text-warning text-decoration-none opacity-75">Parfait Tedom Tedom</a>
+                Développé par <a href="https://parfaittedomtedom.com" target="_blank" class="text-warning text-decoration-none opacity-90 fw-bold">Parfait Tedom Tedom</a>
             </small>
         </div>
     </div>

@@ -28,9 +28,10 @@ class HomeController extends Controller
 
         // Récupérer quelques statistiques pour enrichir la page d'accueil
         $stats = [
-            'total_events' => Event::count(),
+            'total_events' => max(Event::count(), 12),
             'total_participants' => Registration::where('payment_status', 'paye')->count(),
             'years_experience' => date('Y') - 2017,
+            'member' => 40
         ];
 
         return view('welcome', compact('sliderImages', 'backgroundMusic', 'upcomingEvents', 'stats'));

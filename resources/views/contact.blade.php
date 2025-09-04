@@ -36,7 +36,7 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <h5>Téléphone</h5>
-                            <p class="text-muted">+1 (514) 123-4567</p>
+                            <p class="text-muted">+1 (438) 491-8227</p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
@@ -45,7 +45,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <h5>Email</h5>
-                            <p class="text-muted">contact@chorale-mrda.com</p>
+                            <p class="text-muted">choralemrda2025@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                         Rejoignez notre communauté musicale
                     </h3>
                     <p class="lead text-muted mb-4">
-                        La Chorale MRDA accueille tous ceux qui partagent la passion de la musique sacrée.
+                        La Chorale MRDA accueille tous ceux qui partagent la passion de la musique Réligieuse.
                         Aucune expérience préalable n'est requise, juste l'amour du chant et de la louange.
                     </p>
                     <div class="row">

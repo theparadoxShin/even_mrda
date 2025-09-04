@@ -245,11 +245,11 @@
         .carousel-content h1 {
             font-size: 2rem;
         }
-        
+
         .carousel-content p {
             font-size: 1.1rem;
         }
-        
+
         .slide-btn {
             font-size: 0.9rem;
             padding: 10px 20px;
@@ -265,24 +265,24 @@
             font-size: 1.5rem;
         }
     }
-    
+
     @media (max-width: 480px) {
         .carousel-content h1 {
             font-size: 1.8rem;
             margin-bottom: 15px;
         }
-        
+
         .carousel-content p {
             font-size: 1rem;
             margin-bottom: 25px;
             padding: 0 10px;
         }
-        
+
         .slide-btn {
             font-size: 0.85rem;
             padding: 8px 16px;
         }
-        
+
         .hero-carousel, .carousel-item {
             height: 50vh;
         }
@@ -373,14 +373,14 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <h3 class="fw-bold">{{ $stats['total_events'] }}+</h3>
-                    <p>Événements organisés</p>
+                    <p>Événements</p>
                 </div>
                 <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="icon-wrapper">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="fw-bold">{{ $stats['total_participants'] }}+</h3>
-                    <p>Participants satisfaits</p>
+                    <h3 class="fw-bold">{{ $stats['member'] }}+</h3>
+                    <p>Membres</p>
                 </div>
                 <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="icon-wrapper">
@@ -488,7 +488,7 @@
     <!-- Features Section -->
     <section class="page-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Pourquoi nous choisir</h2>
+            <h2 class="section-title" data-aos="fade-up">En quoi nous sommes intéréssants ?</h2>
             <div class="row">
                 <div class="col-lg-4 mb-4" data-aos="fade-up">
                     <div class="feature-card">
@@ -497,7 +497,7 @@
                         </div>
                         <h4 class="fw-bold text-primary">Inscription facile</h4>
                         <p class="text-muted">
-                            Inscrivez-vous rapidement à nos événements via notre plateforme intuitive.
+                            Vous pouvez nous rejoindre quand vous le souhaitez.
                         </p>
                     </div>
                 </div>
@@ -506,9 +506,9 @@
                         <div class="icon-wrapper mx-auto">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h4 class="fw-bold text-primary">Paiement sécurisé</h4>
+                        <h4 class="fw-bold text-primary">Evolution musicale</h4>
                         <p class="text-muted">
-                            Vos paiements sont protégés par des systèmes de sécurité avancés.
+                            Chez nous , on apprend et on progresse ensemble.
                         </p>
                     </div>
                 </div>
@@ -517,9 +517,9 @@
                         <div class="icon-wrapper mx-auto">
                             <i class="fas fa-bell"></i>
                         </div>
-                        <h4 class="fw-bold text-primary">Notifications</h4>
+                        <h4 class="fw-bold text-primary">Famille</h4>
                         <p class="text-muted">
-                            Restez informé de tous nos événements et actualités.
+                            Nous sommes une grande famille unie par la louage et l'adoration.
                         </p>
                     </div>
                 </div>
@@ -539,15 +539,15 @@
                     <div class="row">
                         <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
                             <i class="fas fa-envelope fa-2x mb-2 text-primary"></i>
-                            <div class="text-dark">contact@chorale-mrda.com</div>
+                            <div class="text-dark">choralemrda2025@gmail.com</div>
                         </div>
                         <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
                             <i class="fas fa-phone fa-2x mb-2 text-primary"></i>
-                            <div class="text-dark">+243 123 456 789</div>
+                            <div class="text-dark">+1 (438) 491-8227</div>
                         </div>
                         <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="400">
                             <i class="fas fa-map-marker-alt fa-2x mb-2 text-primary"></i>
-                            <div class="text-dark">Kinshasa, RDC</div>
+                            <div class="text-dark">5366 Chem. de la côte des neiges Montréal, QC, Canada</div>
                         </div>
                     </div>
                     <a href="{{ route('contact.index') }}" class="btn btn-musical mt-4" data-aos="fade-up" data-aos-delay="500">
@@ -573,22 +573,22 @@
         // Carousel JavaScript custom (sans dépendance Bootstrap)
         let currentSlide = 0;
         let autoSlideInterval;
-        
+
         const carousel = document.querySelector('#heroCarousel');
         const slides = carousel.querySelectorAll('.carousel-item');
         const indicators = carousel.querySelectorAll('.carousel-indicators button');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        
+
         console.log(`Found ${slides.length} slides`);
-        
+
         function showSlide(index) {
             // Animation de sortie pour le slide actuel
             const currentActiveSlide = carousel.querySelector('.carousel-item.active');
             if (currentActiveSlide && currentActiveSlide !== slides[index]) {
                 currentActiveSlide.style.opacity = '0';
             }
-            
+
             // Petite pause pour la transition
             setTimeout(() => {
                 // Retirer les classes active de tous les slides
@@ -597,38 +597,38 @@
                     slide.style.opacity = '0';
                 });
                 indicators.forEach(indicator => indicator.classList.remove('active'));
-                
+
                 // Ajouter active au slide courant
                 slides[index].classList.add('active');
                 slides[index].style.opacity = '1';
-                
+
                 if (indicators[index]) {
                     indicators[index].classList.add('active');
                 }
-                
+
                 console.log(`Showing slide ${index}`);
             }, 100);
         }
-        
+
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }
-        
+
         function prevSlide() {
             currentSlide = (currentSlide - 1 + slides.length) % slides.length;
             showSlide(currentSlide);
         }
-        
+
         function startAutoSlide() {
             autoSlideInterval = setInterval(nextSlide, 4000); // 4 secondes
             console.log('Auto-slide started');
         }
-        
+
         function stopAutoSlide() {
             clearInterval(autoSlideInterval);
         }
-        
+
         // Event listeners pour les boutons
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
@@ -637,7 +637,7 @@
                 startAutoSlide(); // Redémarrer l'auto-slide
             });
         }
-        
+
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
                 stopAutoSlide();
@@ -645,7 +645,7 @@
                 startAutoSlide(); // Redémarrer l'auto-slide
             });
         }
-        
+
         // Event listeners pour les indicateurs
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
@@ -655,16 +655,16 @@
                 startAutoSlide(); // Redémarrer l'auto-slide
             });
         });
-        
+
         // Démarrer l'auto-slide si on a des slides
         if (slides.length > 1) {
             startAutoSlide();
         }
-        
+
         // Pause au hover
         carousel.addEventListener('mouseenter', stopAutoSlide);
         carousel.addEventListener('mouseleave', startAutoSlide);
-        
+
         console.log('Custom carousel initialized successfully');
     });
 </script>

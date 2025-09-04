@@ -91,11 +91,11 @@
         }
 
         @keyframes shimmer {
-            0%, 100% { 
+            0%, 100% {
                 transform: translateX(-50%) scaleX(1);
                 opacity: 0.8;
             }
-            50% { 
+            50% {
                 transform: translateX(-50%) scaleX(1.2);
                 opacity: 1;
                 box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
@@ -177,20 +177,20 @@
         }
 
         @keyframes musicBounce {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
-            25% { 
-                transform: translateY(-20px) rotate(-10deg); 
+            25% {
+                transform: translateY(-20px) rotate(-10deg);
                 opacity: 0.8;
             }
-            50% { 
-                transform: translateY(-30px) rotate(0deg); 
+            50% {
+                transform: translateY(-30px) rotate(0deg);
                 opacity: 0.9;
             }
-            75% { 
-                transform: translateY(-20px) rotate(10deg); 
+            75% {
+                transform: translateY(-20px) rotate(10deg);
                 opacity: 0.8;
             }
         }
@@ -217,8 +217,7 @@
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="text-center text-white">
-            <i class="fas fa-music loading-musical-icon"></i>
-            <p>Chargement...</p>
+            <i class="fas fa-music loading-musical-icon" style="font-size: 155px"></i>
         </div>
     </div>
 

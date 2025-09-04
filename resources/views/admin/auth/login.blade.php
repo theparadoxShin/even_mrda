@@ -63,15 +63,6 @@
                 </form>
             </div>
 
-            <div class="text-center mt-4 pt-3 border-top">
-                <small class="text-muted d-block mb-2">Application développée par</small>
-                <a href="https://parfaittedomtedom.com" target="_blank"
-                   class="text-primary text-decoration-none fw-bold">
-                    <i class="fas fa-code me-1"></i>
-                    Parfait Tedom Tedom
-                </a>
-            </div>
-
         </div>
     </div>
 @endsection
