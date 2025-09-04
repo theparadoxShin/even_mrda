@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-custom">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}" data-aos="fade-right">
-            <i class="fas fa-music me-2"></i>Chorale MRDA
+            <img src="{{ asset('logo.png') }}" alt="Chorale MRDA" class="navbar-logo">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -50,7 +50,7 @@
 <style>
 /* Navigation Styles */
 .navbar-custom {
-    background: rgba(37, 99, 235, 0.95) !important;
+    background: rgb(255, 255, 255) !important;
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
@@ -58,7 +58,7 @@
 }
 
 .navbar-custom.scrolled {
-    background: rgba(37, 99, 235, 0.98) !important;
+    background: rgb(255, 255, 255) !important;
     box-shadow: 0 5px 30px rgba(0,0,0,0.2);
     padding: 0.5rem 0;
 }
@@ -76,7 +76,7 @@
 }
 
 .nav-link {
-    color: rgba(255,255,255,0.9) !important;
+    color: var(--primary-blue) !important;
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
@@ -98,6 +98,16 @@
     flex-shrink: 0;
 }
 
+.navbar-logo {
+    height: 50px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
+}
+
 .nav-link::before {
     content: '';
     position: absolute;
@@ -113,7 +123,7 @@
 .nav-link:hover,
 .nav-link.active {
     color: var(--gold, #f59e0b) !important;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     transform: translateY(-2px);
 }
 
@@ -123,7 +133,7 @@
 }
 
 .navbar-toggler {
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgb(37, 99, 235);
     padding: 0.25rem 0.5rem;
 }
 
@@ -132,7 +142,7 @@
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2837, 99, 235, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Mobile responsiveness */

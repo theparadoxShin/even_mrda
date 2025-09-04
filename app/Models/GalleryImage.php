@@ -47,6 +47,12 @@ class GalleryImage extends Model
     // Accesseur pour l'URL complète de l'image
     public function getImageUrlAttribute()
     {
+        // Si l'image est dans public/images (chemin commence par 'images/')
+        if (str_starts_with($this->image_path, 'images/')) {
+            return asset($this->image_path);
+        }
+        
+        // Sinon, c'est une image uploadée dans storage
         return asset('storage/' . $this->image_path);
     }
 

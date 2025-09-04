@@ -88,8 +88,10 @@ class GalleryController extends Controller
 
         // Si nouvelle image uploadée
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image
-            if ($galleryImage->image_path && Storage::disk('public')->exists($galleryImage->image_path)) {
+            // Supprimer l'ancienne image (seulement si ce n'est pas une image de public/images)
+            if ($galleryImage->image_path && 
+                !str_starts_with($galleryImage->image_path, 'images/') && 
+                Storage::disk('public')->exists($galleryImage->image_path)) {
                 Storage::disk('public')->delete($galleryImage->image_path);
             }
 
@@ -108,8 +110,10 @@ class GalleryController extends Controller
 
     public function destroy(GalleryImage $galleryImage)
     {
-        // Supprimer le fichier
-        if ($galleryImage->image_path && Storage::disk('public')->exists($galleryImage->image_path)) {
+        // Supprimer le fichier (seulement si ce n'est pas une image de public/images)
+        if ($galleryImage->image_path && 
+            !str_starts_with($galleryImage->image_path, 'images/') && 
+            Storage::disk('public')->exists($galleryImage->image_path)) {
             Storage::disk('public')->delete($galleryImage->image_path);
         }
 

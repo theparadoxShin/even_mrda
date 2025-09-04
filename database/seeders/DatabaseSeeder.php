@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
         ]);
 
+        // Seed gallery with existing images
+        $this->call(GallerySeeder::class);
     }
 }

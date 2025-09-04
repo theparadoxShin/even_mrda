@@ -9,20 +9,10 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        // Récupérer toutes les catégories disponibles
-        $categories = GalleryImage::active()
-            ->select('category')
-            ->distinct()
-            ->whereNotNull('category')
-            ->pluck('category');
-
-        // Récupérer les images mises en avant
-        $featuredImages = GalleryImage::active()->featured()->take(6)->get();
-
         // Récupérer toutes les images actives
-        $allImages = GalleryImage::active()->orderBy('event_date', 'desc')->paginate(12);
+        $allImages = GalleryImage::active()->orderBy('created_at', 'desc')->paginate(12);
 
-        return view('gallery.index', compact('categories', 'featuredImages', 'allImages'));
+        return view('gallery.index', compact('allImages'));
     }
 
     public function category($category)
