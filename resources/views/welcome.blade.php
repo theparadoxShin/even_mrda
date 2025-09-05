@@ -286,6 +286,85 @@
         .hero-carousel, .carousel-item {
             height: 50vh;
         }
+        
+    }
+    
+    /* Gallery Scroll Styles */
+    .gallery-scroll-section {
+        background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+        border-radius: 20px;
+        margin: 2rem 0;
+        padding: 3rem 0;
+        overflow: hidden;
+    }
+    
+    .gallery-scroll-container {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        margin: 2rem 0;
+    }
+    
+    .gallery-scroll-track {
+        display: flex;
+        gap: 20px;
+        animation: scrollLeft 30s linear infinite;
+        width: fit-content;
+    }
+    
+    .gallery-scroll-image {
+        width: 280px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-shrink: 0;
+    }
+    
+    .gallery-scroll-image:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    }
+    
+    @keyframes scrollLeft {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    .gallery-scroll-container:hover .gallery-scroll-track {
+        animation-play-state: paused;
+    }
+    
+    /* Responsive Gallery Scroll */
+    @media (max-width: 768px) {
+        .gallery-scroll-image {
+            width: 220px;
+            height: 160px;
+        }
+        
+        .gallery-scroll-track {
+            gap: 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .gallery-scroll-image {
+            width: 180px;
+            height: 130px;
+        }
+        
+        .gallery-scroll-track {
+            gap: 10px;
+        }
+        
+        .gallery-scroll-section {
+            padding: 2rem 0;
+        }
     }
 </style>
 @endpush
@@ -389,6 +468,32 @@
                     <h3 class="fw-bold">{{ $stats['years_experience'] }}+</h3>
                     <p>Années d'expérience</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Scroll Section -->
+    <section class="gallery-scroll-section page-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Des voix gracieuses</h2>
+            
+            <div class="gallery-scroll-container" data-aos="fade-up">
+                <div class="gallery-scroll-track">
+                    <img src="{{ asset('images/img_choir_01.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_02.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_03.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_04.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_05.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_06.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_07.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                    <img src="{{ asset('images/img_choir_008.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="{{ route('gallery.index') }}" class="btn btn-musical btn-lg">
+                    <i class="fas fa-images me-2"></i>Voir toute la galerie
+                </a>
             </div>
         </div>
     </section>

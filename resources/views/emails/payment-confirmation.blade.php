@@ -114,7 +114,7 @@
         Cet email a été envoyé automatiquement. Merci de ne pas y répondre.
     </p>
     <p style="margin: 5px 0 0 0; color: #64748b;">
-        © {{ date('Y') }} Chorale App - Tous droits réservés
+        © {{ date('Y') }} MRDA - Tous droits réservés - Build with ❤️ by <a href="https://parfaittedomtedom.com" target="_blank" class="text-warning text-decoration-none opacity-90 fw-bold">Parfait Tedom Tedom</a>
     </p>
 </div>
 </body>

@@ -24,6 +24,11 @@ Route::get('/language/{locale}', function ($locale) {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/success', [HomeController::class, 'success'])->name('success');
 
+// Route de redirection pour l'authentification
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 // Routes pour la galerie
 Route::get('/galerie', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/galerie/categorie/{category}', [GalleryController::class, 'category'])->name('gallery.category');

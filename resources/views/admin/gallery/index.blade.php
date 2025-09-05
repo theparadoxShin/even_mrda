@@ -10,9 +10,9 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Images de la Galerie</h3>
                     <div>
-                        <a href="{{ route('admin.gallery.create') }}" class="btn btn-primary me-2">
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createGalleryModal">
                             <i class="fas fa-plus"></i> Ajouter une image
-                        </a>
+                        </button>
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bulkUploadModal">
                             <i class="fas fa-upload"></i> Upload en masse
                         </button>
@@ -285,4 +285,87 @@ document.querySelectorAll('.status-toggle').forEach(toggle => {
     });
 });
 </script>
+
+<!-- Modal de création d'image galerie -->
+<div class="modal fade" id="createGalleryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-image text-primary me-2"></i>Nouvelle image galerie
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('admin.gallery.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Titre *</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Catégorie</label>
+                                <select class="form-control" id="category" name="category">
+                                    <option value="">Sélectionner...</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category }}">{{ $category }}</option>
+                                    @endforeach
+                                    <option value="Général">Général</option>
+                                    <option value="Concerts">Concerts</option>
+                                    <option value="Répétitions">Répétitions</option>
+                                    <option value="Événements">Événements</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="event_date" class="form-label">Date de l'événement</label>
+                        <input type="date" class="form-control" id="event_date" name="event_date">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image *</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                        <div class="form-text">Formats acceptés : JPEG, PNG, JPG, GIF (max 10MB)</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured">
+                                <label class="form-check-label" for="is_featured">
+                                    Image mise en avant
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" checked>
+                                <label class="form-check-label" for="is_active">
+                                    Actif
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endpush

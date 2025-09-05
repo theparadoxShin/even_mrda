@@ -5,135 +5,148 @@
 @section('hero-subtitle', 'Dernière étape pour confirmer votre participation')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="event-info">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="fw-bold text-primary mb-2">
-                            <i class="fas fa-ticket-alt me-2"></i>{{ $registration->event->name }}
-                        </h5>
-                        <p class="mb-1">
-                            <i class="fas fa-user me-2"></i>{{ $registration->full_name }}
-                        </p>
-                        <p class="mb-1">
-                            <i class="fas fa-envelope me-2"></i>{{ $registration->email }}
-                        </p>
-                        <p class="mb-0">
-                            <i class="fas fa-calendar me-2"></i>{{ $registration->event->event_date->format('d/m/Y à H:i') }}
-                        </p>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="price-highlight">
-                            ${{ number_format($registration->event->price, 2) }} CAD
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>@yield('hero-title')</h1>
+            <p>@yield('hero-subtitle')</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="page-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="event-info">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="fw-bold text-primary mb-2">
+                                    <i class="fas fa-ticket-alt me-2"></i>{{ $registration->event->name }}
+                                </h5>
+                                <p class="mb-1">
+                                    <i class="fas fa-user me-2"></i>{{ $registration->full_name }}
+                                </p>
+                                <p class="mb-1">
+                                    <i class="fas fa-envelope me-2"></i>{{ $registration->email }}
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fas fa-calendar me-2"></i>{{ $registration->event->event_date->format('d/m/Y à H:i') }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="price-highlight">
+                                    ${{ number_format($registration->event->price, 2) }} CAD
+                                </div>
+                                <small class="text-muted">Prix de l'inscription</small>
+                            </div>
                         </div>
-                        <small class="text-muted">Prix de l'inscription</small>
+                    </div>
+
+                    <!-- Formulaire de paiement -->
+                    <div class="card-form">
+                        <h4 class="text-center mb-4 text-primary fw-bold">
+                            <i class="fas fa-credit-card me-2"></i>Informations de paiement
+                        </h4>
+
+                        <!-- Méthodes de paiement -->
+                        <div class="payment-methods mb-4">
+                            <div class="payment-method selected" data-method="card">
+                                <i class="fas fa-credit-card fa-2x mb-2"></i>
+                                <span>Carte bancaire</span>
+                            </div>
+                            <div class="payment-method" data-method="interac">
+                                <i class="fas fa-university fa-2x mb-2"></i>
+                                <span>Interac</span>
+                            </div>
+                        </div>
+
+                        <form id="payment-form">
+                            @csrf
+                            <div id="card-payment" class="payment-section">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <i class="fas fa-credit-card me-1"></i>Numéro de carte
+                                    </label>
+                                    <div id="card-number" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Date d'expiration</label>
+                                        <div id="card-expiry" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Code CVC</label>
+                                        <div id="card-cvc" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="interac-payment" class="payment-section" style="display: none;">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-university fa-3x text-primary mb-3"></i>
+                                    <h5>Paiement par virement Interac</h5>
+                                    <p class="text-muted">
+                                        Vous serez redirigé vers votre banque pour effectuer le paiement sécurisé.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" id="submit-payment" class="btn btn-primary-custom">
+                                <span id="payment-text">
+                                    <i class="fas fa-lock me-2"></i>Payer ${{ number_format($registration->event->price, 2) }} CAD
+                                </span>
+                                    <span id="payment-loading" style="display: none;">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>Traitement...
+                                </span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Sécurité -->
+                        <div class="text-center mt-4">
+                            <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-shield-alt me-1 text-success"></i>
+                                    Paiement sécurisé SSL
+                                </small>
+                                <small class="text-muted">
+                                    <i class="fab fa-cc-visa me-1"></i>
+                                    <i class="fab fa-cc-mastercard me-1"></i>
+                                    Cartes acceptées
+                                </small>
+                                <small class="text-muted">
+                                    Par <a href="https://parfaittedomtedom.com" target="_blank" class="text-primary">
+                                        Parfait Tedom Tedom
+                                    </a>
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Formulaire de paiement -->
-            <div class="card-form">
-                <h4 class="text-center mb-4 text-primary fw-bold">
-                    <i class="fas fa-credit-card me-2"></i>Informations de paiement
-                </h4>
-
-                <!-- Méthodes de paiement -->
-                <div class="payment-methods mb-4">
-                    <div class="payment-method selected" data-method="card">
-                        <i class="fas fa-credit-card fa-2x mb-2 d-block"></i>
-                        <span>Carte bancaire</span>
-                    </div>
-                    <div class="payment-method" data-method="interac">
-                        <i class="fas fa-university fa-2x mb-2 d-block"></i>
-                        <span>Interac</span>
-                    </div>
-                </div>
-
-                <form id="payment-form">
-                    @csrf
-                    <div id="card-payment" class="payment-section">
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <i class="fas fa-credit-card me-1"></i>Numéro de carte
-                            </label>
-                            <div id="card-number" class="form-control" style="height: 45px; padding: 10px;"></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Date d'expiration</label>
-                                <div id="card-expiry" class="form-control" style="height: 45px; padding: 10px;"></div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Code CVC</label>
-                                <div id="card-cvc" class="form-control" style="height: 45px; padding: 10px;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="interac-payment" class="payment-section" style="display: none;">
-                        <div class="text-center p-4">
-                            <i class="fas fa-university fa-3x text-primary mb-3"></i>
-                            <h5>Paiement par virement Interac</h5>
-                            <p class="text-muted">
-                                Vous serez redirigé vers votre banque pour effectuer le paiement sécurisé.
+            <!-- Modal de succès -->
+            <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body text-center p-5">
+                            <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                            <h4 class="fw-bold text-success mb-3">Paiement réussi !</h4>
+                            <p class="text-muted mb-4">
+                                Votre inscription a été confirmée. Vous recevrez un email de confirmation avec votre QR code d'entrée.
                             </p>
+                            <button type="button" class="btn btn-primary-custom" onclick="finish()">
+                                <i class="fas fa-home me-2"></i>Vers l'accueil
+                            </button>
                         </div>
                     </div>
-
-                    <div class="text-center">
-                        <button type="submit" id="submit-payment" class="btn btn-primary-custom">
-                        <span id="payment-text">
-                            <i class="fas fa-lock me-2"></i>Payer ${{ number_format($registration->event->price, 2) }} CAD
-                        </span>
-                            <span id="payment-loading" style="display: none;">
-                            <span class="spinner-border spinner-border-sm me-2"></span>Traitement...
-                        </span>
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Sécurité -->
-                <div class="text-center mt-4">
-                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
-                        <small class="text-muted">
-                            <i class="fas fa-shield-alt me-1 text-success"></i>
-                            Paiement sécurisé SSL
-                        </small>
-                        <small class="text-muted">
-                            <i class="fab fa-cc-visa me-1"></i>
-                            <i class="fab fa-cc-mastercard me-1"></i>
-                            Cartes acceptées
-                        </small>
-                        <small class="text-muted">
-                            Par <a href="https://parfaittedomtedom.com" target="_blank" class="text-primary">
-                                Parfait Tedom Tedom
-                            </a>
-                        </small>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal de succès -->
-    <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center p-5">
-                    <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
-                    <h4 class="fw-bold text-success mb-3">Paiement réussi !</h4>
-                    <p class="text-muted mb-4">
-                        Votre inscription a été confirmée. Vous recevrez un email de confirmation avec votre QR code d'entrée.
-                    </p>
-                    <button type="button" class="btn btn-primary-custom" onclick="finish()">
-                        <i class="fas fa-home me-2"></i>Vers l'accueil
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 @endsection
 
 @push('scripts')

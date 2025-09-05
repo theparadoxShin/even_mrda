@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.auth')
 
 @section('title', 'Connexion Admin')
 
@@ -6,12 +6,6 @@
     <style>
         body {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%) !important;
-        }
-        .navbar-custom, .sidebar {
-            display: none;
-        }
-        .main-content {
-            padding: 0 !important;
         }
     </style>
 @endpush
@@ -57,7 +51,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary-custom w-100">
+                    <button type="submit" class="btn btn-primary-custom w-100 text-white">
                         <i class="fas fa-sign-in-alt me-2"></i>Se connecter
                     </button>
                 </form>

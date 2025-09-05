@@ -17,9 +17,6 @@ class AdminAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('admin')->check()) {
-            if ($request->is('admin') || $request->is('admin/*')) {
-                return redirect()->route('welcome')->with('info', 'Vous devez être autorisé pour accéder à l\'administration.');
-            }
             return redirect()->route('admin.login');
         }
 

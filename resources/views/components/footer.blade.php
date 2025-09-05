@@ -49,19 +49,19 @@
                 <div class="contact-info">
                     <div class="contact-item mb-2">
                         <i class="fas fa-envelope me-2 text-warning"></i>
-                        <a href="mailto:contact@chorale-mrda.com">contact@chorale-mrda.com</a>
+                        <a href="mailto:contact@chorale-mrda.com">choralemrda2025@gmail.com</a>
                     </div>
                     <div class="contact-item mb-2">
                         <i class="fas fa-phone me-2 text-warning"></i>
-                        <a href="tel:+243123456789">+243 123 456 789</a>
+                        <a href="tel:+243123456789">+1 (438) 491-8227</a>
                     </div>
                     <div class="contact-item mb-2">
                         <i class="fas fa-map-marker-alt me-2 text-warning"></i>
-                        <span>123 Rue de la Musique<br>Kinshasa, RDC</span>
+                        <span>5366 Chem. de la côte des neiges<br>Montreal, QC</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock me-2 text-warning"></i>
-                        <span>Répétitions: Mar & Jeu 18h-20h</span>
+                        <span>Répétitions: Ven & Dim 18h-22h</span>
                     </div>
                 </div>
             </div>

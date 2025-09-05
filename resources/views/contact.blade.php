@@ -127,6 +127,15 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <!-- reCAPTCHA -->
+                            <div class="mb-4 d-flex justify-content-center">
+                                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                                @error('g-recaptcha-response')
+                                    <div class="invalid-feedback d-block text-center">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <button type="submit" class="btn btn-primary btn-lg w-100 submit-btn">
                                 <i class="fas fa-paper-plane me-2"></i>
                                 Envoyer le message
@@ -458,6 +467,7 @@
 @endpush
 
 @push('scripts')
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

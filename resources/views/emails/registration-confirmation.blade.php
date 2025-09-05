@@ -65,7 +65,7 @@
 
     <div class="warning-box">
         <h3>⚠️ Paiement requis</h3>
-        <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD</strong>.</p>
+        <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD par virement interac à l'adresse/numéro : carelletchoumi@yahoo.fr /+1 (438) 491-8227 </strong>.</p>
     </div>
 
     <h3>📅 Détails de l'événement :</h3>
@@ -84,13 +84,17 @@
 
     <p>Une fois votre paiement traité, vous recevrez un email de confirmation avec votre QR code d'entrée.</p>
 
-    <p><strong>L'équipe Chorale</strong></p>
+    <p><strong>L'équipe Marie Reine Des Apôtres</strong></p>
 </div>
 
 <div class="footer">
     <p style="margin: 0; color: #64748b;">
         Cet email a été envoyé automatiquement. Merci de ne pas y répondre.
     </p>
+    <p style="margin: 5px 0 0 0; color: #64748b;">
+        © {{ date('Y') }} MRDA - Tous droits réservés - Build with ❤️ by <a href="https://parfaittedomtedom.com" target="_blank" class="text-warning text-decoration-none opacity-90 fw-bold">Parfait Tedom Tedom</a>
+    </p>
 </div>
+
 </body>
 </html>
