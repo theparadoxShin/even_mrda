@@ -30,9 +30,9 @@ class MusicController extends Controller
             'description' => 'nullable|string',
             'audio_file' => 'required|mimes:mp3,wav,m4a,aac|max:20480', // 20MB max
             'order' => 'integer|min:0',
-            'is_featured' => 'boolean',
-            'is_background' => 'boolean',
-            'is_active' => 'boolean'
+            'is_featured' => 'nullable|boolean',
+            'is_background' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean'
         ]);
 
         // Upload du fichier audio
@@ -78,9 +78,9 @@ class MusicController extends Controller
             'description' => 'nullable|string',
             'audio_file' => 'nullable|mimes:mp3,wav,m4a,aac|max:20480',
             'order' => 'integer|min:0',
-            'is_featured' => 'boolean',
-            'is_background' => 'boolean',
-            'is_active' => 'boolean'
+            'is_featured' => 'nullable|boolean',
+            'is_background' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean'
         ]);
 
         $data = [

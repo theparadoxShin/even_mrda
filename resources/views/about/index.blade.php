@@ -265,7 +265,7 @@
         <!-- Membres de la chorale -->
         <section class="section">
             <h2 class="section-title animate-fadeInUp">Nos Membres</h2>
-            <div class="row">
+            <div class="row justify-content-center">
                 @foreach($members as $member)
                 <div class="col-lg-4 col-md-6 animate-fadeInUp">
                     <div class="member-card">
@@ -303,6 +303,7 @@
             </div>
         </section>
 
+{{--
         <!-- Réalisations -->
         <section class="section bg-light">
             <div class="container">
@@ -320,6 +321,7 @@
                 </div>
             </div>
         </section>
+--}}
 
         <!-- Section de contact -->
         <section class="section">

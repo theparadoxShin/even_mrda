@@ -32,8 +32,8 @@ class GalleryController extends Controller
             'category' => 'nullable|string|max:100',
             'event_date' => 'nullable|date',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // 10MB max pour galerie
-            'is_featured' => 'boolean',
-            'is_active' => 'boolean'
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean'
         ]);
 
         // Upload de l'image
@@ -73,8 +73,8 @@ class GalleryController extends Controller
             'category' => 'nullable|string|max:100',
             'event_date' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-            'is_featured' => 'boolean',
-            'is_active' => 'boolean'
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean'
         ]);
 
         $data = [

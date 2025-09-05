@@ -31,7 +31,7 @@ class AboutController extends Controller
                 'role' => 'Assistant chef de choeur',
                 'voice' => 'Baryton Tenor',
                 'years' => 8,
-                'bio' => 'Assistant à la direction musicale, Soliste reconnue, apporte sa voix et technique aux œuvres les plus exigeantes.'
+                'bio' => 'Assistant chef de choeur, soliste, apporte sa voix et technique aux œuvres les plus exigeantes.'
             ],
             [
                 'name' => 'Pamella',
@@ -39,6 +39,13 @@ class AboutController extends Controller
                 'voice' => 'Soprano',
                 'years' => 4,
                 'bio' => 'Soprano, Pamella contribue également à la communication digitale de la chorale.'
+            ],
+            [
+                'name' => 'Willy',
+                'role' => 'Conseiller administratif',
+                'voice' => 'Ténor',
+                'years' => 7,
+                'bio' => 'Maitre de choeur, Willy est aussi conseiller administratif de la chorale.'
             ],
         ];
 

@@ -4,7 +4,6 @@
 @section('meta-description', 'Galerie photos de la Chorale MRDA - Découvrez nos moments précieux en images')
 
 @push('styles')
-<link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
 
 <style>
     .page-header {
@@ -120,10 +119,8 @@
         <section>
             <div class="gallery-grid" id="galleryContainer">
                 @forelse($allImages as $image)
-                <div class="gallery-item animate-fadeInUp" >
-                    <a href="{{ $image->image_url }}" data-lightbox="gallery">
-                        <img src="{{ $image->image_url }}" alt="Image de la chorale" class="gallery-image">
-                    </a>
+                <div class="gallery-item animate-fadeInUp">
+                    <img src="{{ $image->image_url }}" alt="Image de la chorale" class="gallery-image" onclick="viewImage('{{ $image->image_url }}', 'Image de la chorale')" style="cursor: pointer;">
                 </div>
                 @empty
                 <div class="col-12 text-center py-5">
@@ -142,18 +139,24 @@
             @endif
         </section>
     </div>
+
+    <!-- Modal d'aperçu d'image -->
+    <div class="modal fade" id="imageViewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img id="imageViewSrc" src="" class="img-fluid w-100" alt="" style="max-height: 80vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
 <script>
-    // Configuration Lightbox
-    lightbox.option({
-        'resizeDuration': 200,
-        'wrapAround': true,
-        'fadeDuration': 300,
-        'imageFadeDuration': 300
-    });
 
 
     // Animations au scroll
@@ -197,5 +200,12 @@
             imageObserver.observe(img);
         });
     }
+
+// Fonction viewImage pour l'aperçu des images
+function viewImage(src, title) {
+    document.getElementById('imageViewSrc').src = src;
+    //document.getElementById('imageViewTitle').textContent = title;
+    new bootstrap.Modal(document.getElementById('imageViewModal')).show();
+}
 </script>
 @endpush

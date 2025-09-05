@@ -28,7 +28,7 @@ class SliderController extends Controller
             'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max
             'order' => 'integer|min:0',
-            'is_active' => 'boolean'
+            'is_active' => 'nullable|boolean'
         ]);
 
         // Upload de l'image
@@ -64,7 +64,7 @@ class SliderController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'order' => 'integer|min:0',
-            'is_active' => 'boolean'
+            'is_active' => 'nullable|boolean'
         ]);
 
         $data = [

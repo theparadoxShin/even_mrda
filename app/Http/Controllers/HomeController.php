@@ -54,22 +54,38 @@ class HomeController extends Controller
             'email' => 'required|email|max:255',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:2000',
+            'g-recaptcha-response' => 'required',
         ], [
             'name.required' => 'Le nom est obligatoire.',
             'email.required' => 'L\'email est obligatoire.',
             'email.email' => 'Veuillez entrer une adresse email valide.',
             'subject.required' => 'Le sujet est obligatoire.',
             'message.required' => 'Le message est obligatoire.',
+            'g-recaptcha-response.required' => 'Veuillez cocher la case reCAPTCHA pour prouver que vous n\'êtes pas un robot.',
         ]);
 
+        // Vérifier le reCAPTCHA côté serveur
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+        $recaptchaSecret = env('RECAPTCHA_SECRET_KEY');
+
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+        $responseData = json_decode($verifyResponse);
+
+        if (!$responseData->success) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['g-recaptcha-response' => 'La vérification reCAPTCHA a échoué. Veuillez réessayer.']);
+        }
+
         try {
-            // Ici vous pouvez envoyer l'email ou sauvegarder en base
-            // Mail::to('contact@chorale-mrda.com')->send(new ContactMessage($request->all()));
+            // Envoyer l'email de contact
+            Mail::to('contact@cmrda-montreal.com')->send(new ContactMessage($request->all()));
 
             return redirect()->route('contact.index')
                 ->with('success', 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.');
 
         } catch (\Exception $e) {
+            \Log::error('Erreur envoi email contact: ' . $e->getMessage());
             return redirect()->route('contact.index')
                 ->with('error', 'Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.');
         }
