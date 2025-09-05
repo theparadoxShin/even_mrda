@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', app()->getLocale() == 'fr' ? 'Accueil' : 'Home')
+@section('title', app()->getLocale() == 'fr' ? 'Accueil - Chorale MRDA' : 'Home - MRDA Choir')
 @section('meta-description', 'Chorale MRDA - Accueil - Ensemble vocal dédié à la musique sacrée à Montreal, QC Canada')
 
 @push('styles')
@@ -286,9 +286,9 @@
         .hero-carousel, .carousel-item {
             height: 50vh;
         }
-        
+
     }
-    
+
     /* Gallery Scroll Styles */
     .gallery-scroll-section {
         background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
@@ -297,21 +297,21 @@
         padding: 3rem 0;
         overflow: hidden;
     }
-    
+
     .gallery-scroll-container {
         width: 100%;
         overflow: hidden;
         position: relative;
         margin: 2rem 0;
     }
-    
+
     .gallery-scroll-track {
         display: flex;
         gap: 20px;
         animation: scrollLeft 30s linear infinite;
         width: fit-content;
     }
-    
+
     .gallery-scroll-image {
         width: 280px;
         height: 200px;
@@ -321,12 +321,12 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         flex-shrink: 0;
     }
-    
+
     .gallery-scroll-image:hover {
         transform: translateY(-5px) scale(1.02);
         box-shadow: 0 12px 35px rgba(0,0,0,0.25);
     }
-    
+
     @keyframes scrollLeft {
         0% {
             transform: translateX(0);
@@ -335,36 +335,475 @@
             transform: translateX(-50%);
         }
     }
-    
+
     .gallery-scroll-container:hover .gallery-scroll-track {
         animation-play-state: paused;
     }
-    
+
     /* Responsive Gallery Scroll */
     @media (max-width: 768px) {
         .gallery-scroll-image {
             width: 220px;
             height: 160px;
         }
-        
+
         .gallery-scroll-track {
             gap: 15px;
         }
     }
-    
+
     @media (max-width: 480px) {
         .gallery-scroll-image {
             width: 180px;
             height: 130px;
         }
-        
+
         .gallery-scroll-track {
             gap: 10px;
         }
-        
+
         .gallery-scroll-section {
             padding: 2rem 0;
         }
+
+        .events-grid-home {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .events-grid-home.two-events {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+        }
+
+        .event-actions-home {
+            flex-direction: column;
+        }
+    }
+
+    /* Events Section Styles - Modern Design */
+    .events-grid-home {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .events-grid-home.single-event {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        justify-items: center;
+    }
+
+    .events-grid-home.two-events {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 750px;
+    }
+
+    .event-card-home {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        border-left: 4px solid var(--primary-blue);
+        cursor: pointer;
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .event-card-home:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .event-status-home {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 3;
+    }
+
+    .event-status-home.upcoming {
+        background: #10b981;
+        color: white;
+    }
+
+    .event-date-home {
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        text-align: center;
+        padding: 15px;
+        position: relative;
+    }
+
+    .event-day-home {
+        font-size: 1.6rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .event-month-home {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+
+    .event-content-home {
+        padding: 20px;
+    }
+
+    .event-title-home {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--dark-blue);
+        margin-bottom: 12px;
+    }
+
+    .event-meta-home {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    .event-meta-item-home {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .event-description-home {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .event-price-home {
+        background: var(--gold);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    .event-actions-home {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-register-home {
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        flex: 1;
+        text-align: center;
+    }
+
+    .btn-register-home:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        color: white;
+    }
+
+    .btn-details-home {
+        background: transparent;
+        border: 2px solid var(--primary-blue);
+        color: var(--primary-blue);
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .btn-details-home:hover {
+        background: var(--primary-blue);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Modal Styles */
+    .modal-content {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .event-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+
+    .event-description {
+        font-size: 1rem;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+    }
+
+    .event-details {
+        font-size: 0.9rem;
+        color: var(--text-gray);
+        margin-bottom: 1rem;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* Modal styles */
+    .event-modal .modal-dialog {
+        max-width: 750px;
+    }
+
+    .event-modal .modal-content {
+        border-radius: 15px;
+        border: none;
+        overflow: hidden;
+    }
+
+    .modal-header-custom {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+        color: white;
+        padding: 20px;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .modal-header-custom::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+        background-size: 30px 30px;
+        animation: musicNote 3s ease-in-out infinite;
+    }
+
+    .modal-date-badge {
+        background: var(--gold);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .modal-subtitle {
+        opacity: 0.9;
+        margin: 8px 0 0;
+        position: relative;
+        z-index: 2;
+        font-size: 0.9rem;
+    }
+
+    .modal-body-custom {
+        padding: 0;
+    }
+
+    .event-details-section {
+        padding: 25px;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .modal-detail-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 12px;
+        border-left: 3px solid var(--primary-blue);
+        transition: all 0.3s ease;
+    }
+
+    .modal-detail-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .modal-detail-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        flex-shrink: 0;
+        font-size: 0.9rem;
+    }
+
+    .modal-detail-content h6 {
+        margin: 0 0 3px;
+        color: var(--dark-blue);
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .modal-detail-content p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 0.85rem;
+    }
+
+    .modal-price-section {
+        background: linear-gradient(135deg, var(--gold), #f59e0b);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin: 20px 0;
+        border-radius: 12px;
+    }
+
+    .modal-price-amount {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .modal-description {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 20px 0;
+    }
+
+    .modal-description h5 {
+        color: var(--dark-blue);
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .modal-actions {
+        padding: 20px 25px;
+        background: #f8fafc;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-modal-register {
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 40px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-modal-register::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transition: all 0.5s ease;
+        transform: translate(-50%, -50%);
+    }
+
+    .btn-modal-register:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-modal-register:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4);
+        color: white;
+    }
+
+    .btn-modal-close {
+        background: transparent;
+        border: 2px solid #6b7280;
+        color: #6b7280;
+        padding: 12px 25px;
+        border-radius: 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .btn-modal-close:hover {
+        background: #6b7280;
+        color: white;
+        transform: translateY(-2px);
     }
 </style>
 @endpush
@@ -476,7 +915,7 @@
     <section class="gallery-scroll-section page-section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Des voix gracieuses</h2>
-            
+
             <div class="gallery-scroll-container" data-aos="fade-up">
                 <div class="gallery-scroll-track">
                     <img src="{{ asset('images/img_choir_01.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
@@ -489,7 +928,7 @@
                     <img src="{{ asset('images/img_choir_008.jpg') }}" alt="Voix gracieuses" class="gallery-scroll-image">
                 </div>
             </div>
-            
+
             <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
                 <a href="{{ route('gallery.index') }}" class="btn btn-musical btn-lg">
                     <i class="fas fa-images me-2"></i>Voir toute la galerie
@@ -504,31 +943,50 @@
             <h2 class="section-title" data-aos="fade-up">Événements à venir</h2>
 
             @if($upcomingEvents->count() > 0)
-                <div class="row">
+                <div class="events-grid-home @if($upcomingEvents->count() == 1) single-event @elseif($upcomingEvents->count() == 2) two-events @endif">
                     @foreach($upcomingEvents as $index => $event)
-                        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-                            <div class="event-card card-animate">
-                                <div class="d-flex justify-content-between align-items-start mb-3">
-                                    <h4 class="fw-bold text-primary">{{ $event->name }}</h4>
-                                    <span class="badge bg-warning text-dark">${{ number_format($event->price, 2) }}</span>
-                                </div>
-                                <p class="text-muted mb-3">{{ Str::limit($event->description, 100) }}</p>
-                                <div class="mb-3">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-calendar text-primary me-2"></i>
-                                        <span>{{ $event->event_date->format('d/m/Y') }}</span>
+                        <div class="event-card-home" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" data-event-id="{{ $event->id }}" onclick="openEventModal({{ $event->id }})">
+                            <div class="event-status-home upcoming">À venir</div>
+                            <div class="event-date-home">
+                                <div class="event-day-home">{{ $event->event_date->format('d') }}</div>
+                                <div class="event-month-home">{{ $event->event_date->format('M Y') }}</div>
+                            </div>
+                            <div class="event-content-home">
+                                <h3 class="event-title-home">{{ $event->name }}</h3>
+                                <div class="event-meta-home">
+                                    <div class="event-meta-item-home">
+                                        <i class="fas fa-clock"></i>
+                                        {{ $event->event_date->format('H:i') }}
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <i class="fas fa-clock text-primary me-2"></i>
-                                        <span>{{ $event->event_date->format('H:i') }}</span>
+                                    <div class="event-meta-item-home">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ $event->location ?? 'À définir' }}
                                     </div>
                                 </div>
-                                <a href="{{ route('event.register', $event) }}" class="btn btn-musical w-100">
-                                    <i class="fas fa-ticket-alt me-2"></i>S'inscrire maintenant
-                                </a>
+                                <p class="event-description-home">{{ Str::limit($event->description, 120) }}</p>
+                                @if($event->price > 0)
+                                    <div class="event-price-home">${{ number_format($event->price, 2) }}</div>
+                                @else
+                                    <div class="event-price-home">Gratuit</div>
+                                @endif
+                                <div class="event-actions-home">
+                                    <a href="{{ route('event.register', $event) }}" class="btn-register-home" onclick="event.stopPropagation()">
+                                        <i class="fas fa-ticket-alt me-2"></i>S'inscrire
+                                    </a>
+                                    <button type="button" class="btn-details-home" onclick="event.stopPropagation(); openEventModal({{ $event->id }})">
+                                        <i class="fas fa-info-circle me-2"></i>Détails
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     @endforeach
+                </div>
+
+                <!-- Lien vers tous les événements -->
+                <div class="text-center mt-4" data-aos="fade-up">
+                    <a href="{{ route('events.index') }}" class="btn btn-musical">
+                        <i class="fas fa-calendar-alt me-2"></i>Voir tous les événements
+                    </a>
                 </div>
             @else
                 <div class="text-center py-5" data-aos="fade-up">
@@ -662,6 +1120,86 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Détails Événement -->
+    <div class="modal fade event-modal" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-custom">
+                    <div style="position: relative; z-index: 2;">
+                        <div class="modal-date-badge" id="modalDateBadge">Chargement...</div>
+                        <h4 class="modal-title" id="modalEventTitle">Détails de l'Événement</h4>
+                        <p class="modal-subtitle" id="modalEventSubtitle">Chargement...</p>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="position: relative; z-index: 3;"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <div class="event-details-section">
+                        <div class="detail-grid">
+                            <div class="modal-detail-item">
+                                <div class="modal-detail-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="modal-detail-content">
+                                    <h6>Date et Heure</h6>
+                                    <p id="modalEventDateTime">--</p>
+                                </div>
+                            </div>
+                            <div class="modal-detail-item">
+                                <div class="modal-detail-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="modal-detail-content">
+                                    <h6>Lieu</h6>
+                                    <p id="modalEventLocation">--</p>
+                                </div>
+                            </div>
+                            <div class="modal-detail-item">
+                                <div class="modal-detail-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="modal-detail-content">
+                                    <h6>Durée estimée</h6>
+                                    <p id="modalEventDuration">--</p>
+                                </div>
+                            </div>
+                            <div class="modal-detail-item">
+                                <div class="modal-detail-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="modal-detail-content">
+                                    <h6>Places disponibles</h6>
+                                    <p id="modalEventAttendees">--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-price-section">
+                            <div class="modal-price-amount" id="modalEventPrice">
+                                Chargement...
+                            </div>
+                            <p class="mb-0" id="modalPriceLabel">
+                                Chargement...
+                            </p>
+                        </div>
+
+                        <div class="modal-description">
+                            <h5>À propos de cet événement</h5>
+                            <p id="modalEventDescription">Chargement de la description...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="#" id="modalRegisterBtn" class="btn-modal-register">
+                        <i class="fas fa-ticket-alt me-2"></i>S'inscrire maintenant
+                    </a>
+                    <button type="button" class="btn-modal-close" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -772,5 +1310,102 @@
 
         console.log('Custom carousel initialized successfully');
     });
+
+    // Event Modal Script
+    function openEventModal(eventId) {
+        // Afficher un état de chargement
+        showLoadingState();
+
+        // Ouvrir le modal immédiatement avec l'état de chargement
+        const eventModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+        eventModal.show();
+
+        // Récupérer les données de l'événement via AJAX
+        fetch(`/api/evenement/${eventId}`)
+            .then(response => response.json())
+            .then(data => {
+                updateModalContent(data);
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement de l\'événement:', error);
+                showErrorState();
+            });
+    }
+
+    // Fonction pour afficher l'état de chargement
+    function showLoadingState() {
+        document.getElementById('modalDateBadge').textContent = 'Chargement...';
+        document.getElementById('modalEventTitle').textContent = 'Chargement des détails...';
+        document.getElementById('modalEventSubtitle').textContent = 'Veuillez patienter...';
+        document.getElementById('modalEventDateTime').textContent = 'Chargement...';
+        document.getElementById('modalEventLocation').textContent = 'Chargement...';
+        document.getElementById('modalEventDuration').textContent = 'Chargement...';
+        document.getElementById('modalEventAttendees').textContent = 'Chargement...';
+        document.getElementById('modalEventPrice').textContent = 'Chargement...';
+        document.getElementById('modalPriceLabel').textContent = 'Chargement...';
+        document.getElementById('modalEventDescription').textContent = 'Chargement de la description...';
+        document.getElementById('modalRegisterBtn').href = '#';
+        document.getElementById('modalRegisterBtn').style.opacity = '0.5';
+    }
+
+    // Fonction pour afficher l'état d'erreur
+    function showErrorState() {
+        document.getElementById('modalEventTitle').textContent = 'Erreur de chargement';
+        document.getElementById('modalEventSubtitle').textContent = 'Impossible de charger les détails de l\'événement';
+        document.getElementById('modalEventDescription').textContent = 'Une erreur est survenue lors du chargement des données. Veuillez réessayer.';
+    }
+
+    // Fonction pour mettre à jour le contenu du modal avec les données reçues
+    function updateModalContent(event) {
+        // Mettre à jour le titre et les informations principales
+        document.getElementById('modalEventTitle').textContent = event.name;
+        document.getElementById('modalEventSubtitle').textContent = event.formatted_datetime;
+
+        // Mettre à jour le badge de prix
+        const dateBadge = document.getElementById('modalDateBadge');
+        dateBadge.textContent = event.price_formatted;
+        if (event.price > 0) {
+            dateBadge.style.background = 'var(--gold)';
+        } else {
+            dateBadge.style.background = '#10b981';
+        }
+
+        // Mettre à jour les détails
+        document.getElementById('modalEventDateTime').textContent = event.formatted_date + ' à ' + event.formatted_time;
+        document.getElementById('modalEventLocation').textContent = event.location;
+        document.getElementById('modalEventDuration').textContent = event.duration;
+        document.getElementById('modalEventAttendees').textContent = event.max_attendees;
+
+        // Mettre à jour la section prix
+        document.getElementById('modalEventPrice').textContent = event.price_formatted;
+        const priceLabel = document.getElementById('modalPriceLabel');
+        if (event.price > 0) {
+            priceLabel.textContent = 'Par personne';
+        } else {
+            priceLabel.textContent = 'Entrée libre';
+        }
+
+        // Mettre à jour la description
+        document.getElementById('modalEventDescription').textContent = event.description || 'Aucune description disponible pour cet événement.';
+
+        // Mettre à jour le bouton d'inscription
+        const registerBtn = document.getElementById('modalRegisterBtn');
+        registerBtn.href = event.register_url;
+        registerBtn.style.opacity = '1';
+
+        // Cacher le bouton d'inscription si l'événement est passé
+        if (!event.is_upcoming) {
+            registerBtn.style.display = 'none';
+        } else {
+            registerBtn.style.display = 'inline-block';
+        }
+
+        // Ajouter une animation de fondu pour indiquer que le contenu est chargé
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.style.opacity = '0.8';
+        setTimeout(() => {
+            modalContent.style.opacity = '1';
+        }, 200);
+    }
 </script>
 @endpush

@@ -85,7 +85,13 @@
             <li><strong>Date :</strong> {{ $event->event_date->format('d/m/Y à H:i') }}</li>
             <li><strong>Participant :</strong> {{ $registration->full_name }}</li>
             <li><strong>Email :</strong> {{ $registration->email }}</li>
-            <li><strong>Montant payé :</strong> ${{ number_format($event->price, 2) }} CAD</li>
+            <li><strong>Montant payé :</strong> 
+                @if($event->price > 0)
+                    ${{ number_format($event->price, 2) }} CAD
+                @else
+                    Gratuit
+                @endif
+            </li>
         </ul>
     </div>
 

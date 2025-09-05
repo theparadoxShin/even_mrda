@@ -37,7 +37,13 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span><i class="fas fa-dollar-sign me-1"></i>Prix:</span>
-                                <span class="fw-bold text-primary">${{ number_format($event->price, 2) }} CAD</span>
+                                <span class="fw-bold text-primary">
+                                    @if($event->price > 0)
+                                        ${{ number_format($event->price, 2) }} CAD
+                                    @else
+                                        Gratuit
+                                    @endif
+                                </span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span><i class="fas fa-clock me-1"></i>Date:</span>

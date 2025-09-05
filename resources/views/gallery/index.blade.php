@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Galerie')
+@section('title', 'Galerie - Chorale MRDA')
 @section('meta-description', 'Galerie photos de la Chorale MRDA - Découvrez nos moments précieux en images')
 
 @push('styles')

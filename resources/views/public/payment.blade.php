@@ -36,7 +36,11 @@
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="price-highlight">
-                                    ${{ number_format($registration->event->price, 2) }} CAD
+                                    @if($registration->event->price > 0)
+                                        ${{ number_format($registration->event->price, 2) }} CAD
+                                    @else
+                                        Gratuit
+                                    @endif
                                 </div>
                                 <small class="text-muted">Prix de l'inscription</small>
                             </div>
@@ -45,58 +49,77 @@
 
                     <!-- Formulaire de paiement -->
                     <div class="card-form">
-                        <h4 class="text-center mb-4 text-primary fw-bold">
-                            <i class="fas fa-credit-card me-2"></i>Informations de paiement
-                        </h4>
+                        @if($registration->event->price > 0)
+                            <h4 class="text-center mb-4 text-primary fw-bold">
+                                <i class="fas fa-credit-card me-2"></i>Informations de paiement
+                            </h4>
 
-                        <!-- Méthodes de paiement -->
-                        <div class="payment-methods mb-4">
-                            <div class="payment-method selected" data-method="card">
-                                <i class="fas fa-credit-card fa-2x mb-2"></i>
-                                <span>Carte bancaire</span>
+                            <!-- Méthodes de paiement -->
+                            <div class="payment-methods mb-4">
+                                <div class="payment-method selected" data-method="card">
+                                    <i class="fas fa-credit-card fa-2x mb-2"></i>
+                                    <span>Carte bancaire</span>
+                                </div>
+                                <div class="payment-method" data-method="interac">
+                                    <i class="fas fa-university fa-2x mb-2"></i>
+                                    <span>Interac</span>
+                                </div>
                             </div>
-                            <div class="payment-method" data-method="interac">
-                                <i class="fas fa-university fa-2x mb-2"></i>
-                                <span>Interac</span>
+                        @else
+                            <h4 class="text-center mb-4 text-success fw-bold">
+                                <i class="fas fa-gift me-2"></i>Événement Gratuit
+                            </h4>
+                            <div class="text-center p-4 bg-success bg-opacity-10 rounded-4 mb-4">
+                                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                                <h5 class="text-success">Aucun paiement requis</h5>
+                                <p class="text-muted mb-0">
+                                    Cliquez sur le bouton ci-dessous pour confirmer votre inscription gratuite.
+                                </p>
                             </div>
-                        </div>
+                        @endif
 
                         <form id="payment-form">
                             @csrf
-                            <div id="card-payment" class="payment-section">
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-credit-card me-1"></i>Numéro de carte
-                                    </label>
-                                    <div id="card-number" class="form-control" style="height: 45px; padding: 10px;"></div>
+                            @if($registration->event->price > 0)
+                                <div id="card-payment" class="payment-section">
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            <i class="fas fa-credit-card me-1"></i>Numéro de carte
+                                        </label>
+                                        <div id="card-number" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Date d'expiration</label>
+                                            <div id="card-expiry" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Code CVC</label>
+                                            <div id="card-cvc" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Date d'expiration</label>
-                                        <div id="card-expiry" class="form-control" style="height: 45px; padding: 10px;"></div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Code CVC</label>
-                                        <div id="card-cvc" class="form-control" style="height: 45px; padding: 10px;"></div>
+                                <div id="interac-payment" class="payment-section" style="display: none;">
+                                    <div class="text-center p-4">
+                                        <i class="fas fa-university fa-3x text-primary mb-3"></i>
+                                        <h5>Paiement par virement Interac</h5>
+                                        <p class="text-muted">
+                                            Vous serez redirigé vers votre banque pour effectuer le paiement sécurisé.
+                                        </p>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div id="interac-payment" class="payment-section" style="display: none;">
-                                <div class="text-center p-4">
-                                    <i class="fas fa-university fa-3x text-primary mb-3"></i>
-                                    <h5>Paiement par virement Interac</h5>
-                                    <p class="text-muted">
-                                        Vous serez redirigé vers votre banque pour effectuer le paiement sécurisé.
-                                    </p>
-                                </div>
-                            </div>
+                            @endif
 
                             <div class="text-center">
                                 <button type="submit" id="submit-payment" class="btn btn-primary-custom">
                                 <span id="payment-text">
-                                    <i class="fas fa-lock me-2"></i>Payer ${{ number_format($registration->event->price, 2) }} CAD
+                                    @if($registration->event->price > 0)
+                                        <i class="fas fa-lock me-2"></i>Payer ${{ number_format($registration->event->price, 2) }} CAD
+                                    @else
+                                        <i class="fas fa-check me-2"></i>Confirmer l'inscription gratuite
+                                    @endif
                                 </span>
                                     <span id="payment-loading" style="display: none;">
                                     <span class="spinner-border spinner-border-sm me-2"></span>Traitement...

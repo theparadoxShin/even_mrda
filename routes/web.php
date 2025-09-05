@@ -48,6 +48,7 @@ Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact
 // Routes pour la page des événements
 Route::get('/evenements', [EventController::class, 'index'])->name('events.index');
 Route::get('/evenement/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/api/evenement/{event}', [EventController::class, 'getEventData'])->name('events.api.details');
 
 // Routes pour les événements
 Route::get('/event/{event}/register', [PublicController::class, 'showRegistrationForm'])->name('event.register');

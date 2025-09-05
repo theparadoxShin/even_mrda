@@ -34,7 +34,13 @@
                             <div class="col-md-4">
                                 <div class="d-flex align-items-center justify-content-center mb-2">
                                     <i class="fas fa-dollar-sign me-2 text-primary"></i>
-                                    <span class="price-highlight">${{ number_format($event->price, 2) }} CAD</span>
+                                    <span class="price-highlight">
+                                        @if($event->price > 0)
+                                            ${{ number_format($event->price, 2) }} CAD
+                                        @else
+                                            Gratuit
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-4">

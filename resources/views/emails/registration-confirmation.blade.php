@@ -55,7 +55,11 @@
 <body>
 <div class="header">
     <h1>🎵 Inscription Enregistrée</h1>
-    <p>Votre inscription est en attente de paiement</p>
+    @if($registration->event->price > 0)
+        <p>Votre inscription est en attente de paiement</p>
+    @else
+        <p>Votre inscription est confirmée !</p>
+    @endif
 </div>
 
 <div class="content">
@@ -63,16 +67,29 @@
 
     <p>Merci pour votre inscription à l'événement <strong>{{ $registration->event->name }}</strong>.</p>
 
-    <div class="warning-box">
-        <h3>⚠️ Paiement requis</h3>
-        <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD par virement interac à l'adresse/numéro : carelletchoumi@yahoo.fr /+1 (438) 491-8227 </strong>.</p>
-    </div>
+    @if($registration->event->price > 0)
+        <div class="warning-box">
+            <h3>⚠️ Paiement requis</h3>
+            <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD par virement interac à l'adresse/numéro : carelletchoumi@yahoo.fr /+1 (438) 491-8227 </strong>.</p>
+        </div>
+    @else
+        <div style="background: #d1fae5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <h3>✅ Inscription confirmée</h3>
+            <p><strong>Votre inscription est confirmée !</strong> Cet événement est gratuit, aucun paiement n'est requis. Vous recevrez bientôt les détails complémentaires.</p>
+        </div>
+    @endif
 
     <h3>📅 Détails de l'événement :</h3>
     <ul>
         <li><strong>Événement :</strong> {{ $registration->event->name }}</li>
         <li><strong>Date :</strong> {{ $registration->event->event_date->format('d/m/Y à H:i') }}</li>
-        <li><strong>Prix :</strong> ${{ number_format($registration->event->price, 2) }} CAD</li>
+        <li><strong>Prix :</strong> 
+            @if($registration->event->price > 0)
+                ${{ number_format($registration->event->price, 2) }} CAD
+            @else
+                Gratuit
+            @endif
+        </li>
     </ul>
 
     <h3>👤 Vos informations :</h3>
@@ -82,7 +99,11 @@
         <li><strong>Téléphone :</strong> {{ $registration->phone }}</li>
     </ul>
 
-    <p>Une fois votre paiement traité, vous recevrez un email de confirmation avec votre QR code d'entrée.</p>
+    @if($registration->event->price > 0)
+        <p>Une fois votre paiement traité, vous recevrez un email de confirmation avec votre QR code d'entrée.</p>
+    @else
+        <p>Vous recevrez bientôt un email avec votre QR code d'entrée et les informations complémentaires pour l'événement.</p>
+    @endif
 
     <p><strong>L'équipe Marie Reine Des Apôtres</strong></p>
 </div>

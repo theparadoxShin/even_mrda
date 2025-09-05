@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  use App\Models\MusicTrack;
+use App\Models\MusicTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,7 +28,7 @@ class MusicController extends Controller
             'composer' => 'nullable|string|max:255',
             'genre' => 'string|max:100',
             'description' => 'nullable|string',
-            'audio_file' => 'required|mimes:mp3,wav,m4a,aac|max:20480', // 20MB max
+            'audio_file' => 'required|mimes:mp3,wav,m4a,aac|max:20480',
             'order' => 'integer|min:0',
             'is_featured' => 'nullable|boolean',
             'is_background' => 'nullable|boolean',
@@ -52,13 +52,28 @@ class MusicController extends Controller
                 'file_path' => $path,
                 'duration' => $duration,
                 'order' => $request->order ?? 0,
-                'is_featured' => $request->has('is_featured'),
-                'is_background' => $request->has('is_background'),
-                'is_active' => $request->has('is_active')
+                'is_featured' => $request->boolean('is_featured'),
+                'is_background' => $request->boolean('is_background'),
+                'is_active' => $request->boolean('is_active')
             ]);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Piste musicale ajoutée avec succès !',
+                    'reload' => true
+                ]);
+            }
 
             return redirect()->route('admin.music.index')
                 ->with('success', 'Piste musicale ajoutée avec succès !');
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de l\'upload du fichier audio.'
+            ], 400);
         }
 
         return back()->with('error', 'Erreur lors de l\'upload du fichier audio.');
@@ -89,9 +104,9 @@ class MusicController extends Controller
             'genre' => $request->genre ?? 'Religieux',
             'description' => $request->description,
             'order' => $request->order ?? 0,
-            'is_featured' => $request->has('is_featured'),
-            'is_background' => $request->has('is_background'),
-            'is_active' => $request->has('is_active')
+            'is_featured' => $request->boolean('is_featured'),
+            'is_background' => $request->boolean('is_background'),
+            'is_active' => $request->boolean('is_active')
         ];
 
         // Si nouveau fichier audio uploadé
@@ -112,18 +127,33 @@ class MusicController extends Controller
 
         $musicTrack->update($data);
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Piste musicale mise à jour avec succès !',
+                'reload' => true
+            ]);
+        }
+
         return redirect()->route('admin.music.index')
             ->with('success', 'Piste musicale mise à jour avec succès !');
     }
 
-    public function destroy(MusicTrack $musicTrack)
-    {
+    public function destroy(MusicTrack $musicTrack){
         // Supprimer le fichier audio
         if ($musicTrack->file_path && Storage::disk('public')->exists($musicTrack->file_path)) {
             Storage::disk('public')->delete($musicTrack->file_path);
         }
 
         $musicTrack->delete();
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Piste musicale supprimée avec succès !',
+                'reload' => true
+            ]);
+        }
 
         return redirect()->route('admin.music.index')
             ->with('success', 'Piste musicale supprimée avec succès !');

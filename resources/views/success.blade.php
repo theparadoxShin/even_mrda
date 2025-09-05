@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiement Réussi - Chorale App</title>
+    <title>Paiement Réussi - CMRDA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -120,6 +120,8 @@
         </h5>
         <ul class="text-start text-muted">
             <li class="mb-2">✅ Vous allez recevoir un email de confirmation</li>
+            <li class="mb-2">💲 Vous devez payer par virement interac</li>
+            <li class="mb-2">✉️ Nous confirmerons votre paiement avec notifications Email</li>
             <li class="mb-2">🎫 Votre QR code d'entrée sera joint à l'email</li>
             <li class="mb-2">📱 Vous recevrez des rappels avant l'événement</li>
             <li class="mb-2">🎵 Préparez-vous à vivre une expérience musicale unique !</li>

@@ -43,6 +43,26 @@ class PublicController extends Controller
         }
 
 
+        // Si l'événement est gratuit, on confirme directement l'inscription
+        if ($event->price == 0) {
+            $registration->update([
+                'payment_status' => 'paye',
+                'payment_id' => 'GRATUIT-' . time()
+            ]);
+
+            try {
+                // Envoyer l'email de confirmation de paiement (même si c'est gratuit)
+                Mail::to($registration->email)->send(new PaymentConfirmation($registration));
+            } catch (\Exception $e) {
+                Log::error('Erreur envoi email confirmation gratuit: ' . $e->getMessage());
+            }
+
+            return redirect()->route('success')->with([
+                'success' => 'Votre inscription gratuite a été confirmée avec succès !',
+                'event_name' => $event->name
+            ]);
+        }
+
         return redirect()->route('payment.form', $registration->id);
     }
 
@@ -53,6 +73,25 @@ class PublicController extends Controller
 
     public function processPayment(Request $request, Registration $registration)
     {
+        // Si l'événement est gratuit, on confirme directement
+        if ($registration->event->price == 0) {
+            $registration->update([
+                'payment_status' => 'paye',
+                'payment_id' => 'GRATUIT-' . time()
+            ]);
+
+            try {
+                Mail::to($registration->email)->send(new PaymentConfirmation($registration));
+            } catch (\Exception $e) {
+                Log::error('Erreur envoi email confirmation gratuit: ' . $e->getMessage());
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Inscription gratuite confirmée avec succès !'
+            ]);
+        }
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         try {
