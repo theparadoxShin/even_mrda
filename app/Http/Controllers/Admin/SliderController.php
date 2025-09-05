@@ -26,12 +26,11 @@ class SliderController extends Controller
         $request->validate([
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
             'order' => 'integer|min:0',
             'is_active' => 'nullable|boolean'
         ]);
 
-        // Upload de l'image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '_' . Str::slug($request->title ?: 'slider') . '.' . $image->getClientOriginalExtension();
@@ -42,11 +41,26 @@ class SliderController extends Controller
                 'description' => $request->description,
                 'image_path' => $path,
                 'order' => $request->order ?? 0,
-                'is_active' => $request->has('is_active')
+                'is_active' => $request->boolean('is_active')
             ]);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Image du slider ajoutée avec succès !',
+                    'reload' => true
+                ]);
+            }
 
             return redirect()->route('admin.slider.index')
                 ->with('success', 'Image du slider ajoutée avec succès !');
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de l\'upload de l\'image.'
+            ], 400);
         }
 
         return back()->with('error', 'Erreur lors de l\'upload de l\'image.');
@@ -71,17 +85,14 @@ class SliderController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'order' => $request->order ?? 0,
-            'is_active' => $request->has('is_active')
+            'is_active' => $request->boolean('is_active')
         ];
 
-        // Si nouvelle image uploadée
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image
             if ($sliderImage->image_path && Storage::disk('public')->exists($sliderImage->image_path)) {
                 Storage::disk('public')->delete($sliderImage->image_path);
             }
 
-            // Upload nouvelle image
             $image = $request->file('image');
             $filename = time() . '_' . Str::slug($request->title ?: 'slider') . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('slider', $filename, 'public');
@@ -90,18 +101,33 @@ class SliderController extends Controller
 
         $sliderImage->update($data);
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Image du slider mise à jour avec succès !',
+                'reload' => true
+            ]);
+        }
+
         return redirect()->route('admin.slider.index')
             ->with('success', 'Image du slider mise à jour avec succès !');
     }
 
     public function destroy(SliderImage $sliderImage)
     {
-        // Supprimer le fichier
         if ($sliderImage->image_path && Storage::disk('public')->exists($sliderImage->image_path)) {
             Storage::disk('public')->delete($sliderImage->image_path);
         }
 
         $sliderImage->delete();
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Image du slider supprimée avec succès !',
+                'reload' => true
+            ]);
+        }
 
         return redirect()->route('admin.slider.index')
             ->with('success', 'Image du slider supprimée avec succès !');
@@ -119,5 +145,17 @@ class SliderController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    public function toggleStatus(Request $request, SliderImage $sliderImage)
+    {
+        $sliderImage->update([
+            'is_active' => (bool) $request->input('is_active')
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'is_active' => $sliderImage->is_active,
+        ]);
     }
 }

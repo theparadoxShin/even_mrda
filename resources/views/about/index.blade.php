@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'À Propos')
+@section('title', 'À Propos - Chorale MRDA')
 @section('meta-description', 'À Propos de la Chorale MRDA - Découvrez notre histoire, nos membres et notre mission')
 
 @push('styles')

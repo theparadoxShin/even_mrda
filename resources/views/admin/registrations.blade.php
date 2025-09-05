@@ -53,7 +53,13 @@
             <div class="card stats-card">
                 <div class="card-body text-center">
                     <i class="fas fa-dollar-sign fa-2x text-info mb-2"></i>
-                    <h4 class="fw-bold text-info">${{ number_format($event->price * $registrations->where('payment_status', 'paye')->count(), 2) }}</h4>
+                    <h4 class="fw-bold text-info">
+                        @if($event->price > 0)
+                            ${{ number_format($event->price * $registrations->where('payment_status', 'paye')->count(), 2) }}
+                        @else
+                            Gratuit
+                        @endif
+                    </h4>
                     <small class="text-muted">Revenus CAD</small>
                 </div>
             </div>

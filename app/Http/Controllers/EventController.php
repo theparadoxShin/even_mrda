@@ -32,4 +32,26 @@ class EventController extends Controller
     {
         return view('events.show', compact('event'));
     }
+
+    public function getEventData(Event $event)
+    {
+        return response()->json([
+            'id' => $event->id,
+            'name' => $event->name,
+            'description' => $event->description,
+            'event_date' => $event->event_date,
+            'location' => $event->location ?? 'À définir',
+            'price' => $event->price,
+            'duration' => $event->duration ?? '2 heures',
+            'max_attendees' => $event->max_attendees ?? 'Illimitées',
+            'formatted_date' => $event->event_date->format('l d F Y'),
+            'formatted_time' => $event->event_date->format('H:i'),
+            'formatted_datetime' => $event->event_date->format('d M Y, H:i'),
+            'day' => $event->event_date->format('d'),
+            'month' => $event->event_date->format('M Y'),
+            'is_upcoming' => $event->event_date >= now(),
+            'price_formatted' => $event->price > 0 ? '$' . number_format($event->price, 2) : 'Gratuit',
+            'register_url' => route('event.register', $event)
+        ]);
+    }
 }
