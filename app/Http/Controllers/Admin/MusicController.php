@@ -139,24 +139,21 @@ class MusicController extends Controller
             ->with('success', 'Piste musicale mise à jour avec succès !');
     }
 
-    public function destroy(MusicTrack $musicTrack){
+    public function destroy($id){
+
+        $musicTrack = MusicTrack::find($id);
+
         // Supprimer le fichier audio
         if ($musicTrack->file_path && Storage::disk('public')->exists($musicTrack->file_path)) {
             Storage::disk('public')->delete($musicTrack->file_path);
         }
 
-        $musicTrack->delete();
-
-        if (request()->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Piste musicale supprimée avec succès !',
-                'reload' => true
-            ]);
+        if ($musicTrack->delete()){
+            return back()->with('success', 'Piste musicale supprimée avec succès !');
+        } else {
+            return back()->with('error', 'Erreur lors de la suppression de la piste musicale.');
         }
 
-        return redirect()->route('admin.music.index')
-            ->with('success', 'Piste musicale supprimée avec succès !');
     }
 
     public function updateOrder(Request $request)

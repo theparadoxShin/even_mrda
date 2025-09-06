@@ -4,15 +4,43 @@
 @section('meta-description', 'Chorale MRDA - Accueil - Ensemble vocal dédié à la musique sacrée à Montreal, QC Canada')
 
 @push('styles')
-@livewireStyles
 
 <style>
+    /* Corrections pour éliminer l'espace blanc mobile */
+    * {
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    /* Additional container constraints */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+    
+    .col, [class*="col-"] {
+        padding-left: 12px;
+        padding-right: 12px;
+        max-width: 100%;
+    }
+    
+    /* Prevent any element from exceeding viewport */
+    .container, .container-fluid, .row, .col {
+        max-width: 100vw;
+    }
+
     /* Carrousel héro avec animations musicales */
     .hero-carousel {
         height: 80vh;
         position: relative;
         overflow: hidden;
         margin-top: -80px; /* Compensate for navbar padding */
+        max-width: 100vw;
     }
 
     .carousel-item {
@@ -20,6 +48,8 @@
         position: relative;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
+        max-width: 100vw;
+        overflow: hidden;
     }
 
     .carousel-item.active {
@@ -61,6 +91,8 @@
         transform: translateY(30px);
         opacity: 0;
         transition: all 0.8s ease-out;
+        max-width: 100%;
+        padding: 0 20px;
     }
 
     .carousel-item.active .carousel-content {
@@ -296,6 +328,8 @@
         margin: 2rem 0;
         padding: 3rem 0;
         overflow: hidden;
+        width: 100%;
+        max-width: 100vw;
     }
 
     .gallery-scroll-container {
@@ -303,6 +337,7 @@
         overflow: hidden;
         position: relative;
         margin: 2rem 0;
+        max-width: 100vw;
     }
 
     .gallery-scroll-track {
@@ -369,27 +404,74 @@
         .events-grid-home {
             grid-template-columns: 1fr;
             gap: 20px;
+            max-width: 100%;
+            padding: 0 15px;
         }
 
         .events-grid-home.two-events {
             grid-template-columns: 1fr;
-            max-width: 500px;
+            max-width: 100%;
         }
 
         .event-actions-home {
             flex-direction: column;
+        }
+        
+        .hero-carousel, .carousel-item {
+            max-width: 100vw;
+        }
+        
+        .carousel-content {
+            padding: 0 15px;
+        }
+        
+        .gallery-scroll-section {
+            padding: 2rem 10px;
+            margin: 1rem 0;
+        }
+        
+        /* Modal fixes for mobile */
+        .modal-dialog {
+            max-width: 95vw;
+            margin: 10px;
+        }
+        
+        .modal-content {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Container fixes */
+        .container, .container-fluid {
+            max-width: 100vw;
+            overflow-x: hidden;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        /* Image constraints */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Text and heading constraints */
+        h1, h2, h3, h4, h5, h6, p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
     }
 
     /* Events Section Styles - Modern Design */
     .events-grid-home {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 25px;
         margin-top: 30px;
         max-width: 1100px;
         margin-left: auto;
         margin-right: auto;
+        width: 100%;
     }
 
     .events-grid-home.single-event {
@@ -668,6 +750,8 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
         margin-bottom: 20px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .modal-detail-item {
@@ -1203,7 +1287,6 @@
 @endsection
 
 @push('scripts')
-@livewireScripts
 <script>
     // Initialiser AOS (Animate On Scroll)
     document.addEventListener('DOMContentLoaded', function() {
@@ -1310,6 +1393,7 @@
 
         console.log('Custom carousel initialized successfully');
     });
+
 
     // Event Modal Script
     function openEventModal(eventId) {
