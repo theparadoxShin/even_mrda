@@ -91,9 +91,14 @@
                                                         </form>
                                                     @endif
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
-                                                            onclick="deleteTrack({{ $track->id }}, {{ json_encode($track->title) }})">
+                                                            onclick="deletemusic({{ $track->id }}, {{ json_encode($track->title) }})">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
+                                                        <form id="delete-form-{{ $track->id }}" action="{{ route('admin.music.destroy',$track->id) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -195,7 +200,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured">
+                                <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" >
                                 <label class="form-check-label" for="is_featured">
                                     Mise en avant
                                 </label>
@@ -203,7 +208,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="is_background" name="is_background">
+                                <input class="form-check-input" type="checkbox" id="is_background" value="1" name="is_background">
                                 <label class="form-check-label" for="is_background">
                                     Musique de fond
                                 </label>
@@ -211,7 +216,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" checked>
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
                                 <label class="form-check-label" for="is_active">
                                     Actif
                                 </label>
@@ -375,182 +380,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Fonction pour éditer une piste
-    window.editTrack = function(id, title, composer, genre, description, order, isFeatured, isBackground, isActive) {
-        document.getElementById('edit_title').value = title;
-        document.getElementById('edit_composer').value = composer || '';
-        document.getElementById('edit_genre').value = genre || '';
-        document.getElementById('edit_description').value = description || '';
-        document.getElementById('edit_order').value = order;
-
-        document.getElementById('edit_is_featured').checked = isFeatured;
-        document.getElementById('edit_is_background').checked = isBackground;
-        document.getElementById('edit_is_active').checked = isActive;
-
-        document.getElementById('editMusicForm').dataset.musicId = id;
-
-        new bootstrap.Modal(document.getElementById('editMusicModal')).show();
-    };
-
-    // Fonction pour supprimer une piste avec SweetAlert et AJAX
-    window.deleteTrack = function(id, title) {
-        Swal.fire({
-            title: 'Supprimer la piste ?',
-            text: `Voulez-vous vraiment supprimer la piste "${title}" ? Cette action est irréversible.`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Oui, supprimer',
-            cancelButtonText: 'Annuler',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Suppression en cours...',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    showConfirmButton: false,
-                    willOpen: () => Swal.showLoading()
-                });
-
-                fetch(`/admin/music/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            title: 'Supprimé !',
-                            text: data.message,
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Erreur !', data.message || 'Une erreur est survenue.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Erreur !', 'Une erreur de connexion est survenue.', 'error');
-                });
-            }
-        });
-    };
-
-    // Gestionnaire AJAX pour le formulaire de création
-    const createForm = document.getElementById('createMusicForm');
-    if (createForm) {
-        createForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enregistrement...';
-
-            fetch('{{ route("admin.music.store") }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Accept': 'application/json'
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    bootstrap.Modal.getInstance(document.getElementById('createMusicModal')).hide();
-
-                    Swal.fire({
-                        title: 'Succès !',
-                        text: data.message,
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        location.reload();
-                    });
-
-                    this.reset();
-                } else {
-                    Swal.fire('Erreur !', data.message || 'Une erreur est survenue.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire('Erreur !', 'Une erreur de connexion est survenue.', 'error');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            });
-        });
-    }
-
-    // Gestionnaire AJAX pour le formulaire d'édition
-    const editForm = document.getElementById('editMusicForm');
-    if (editForm) {
-        editForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const musicId = this.dataset.musicId;
-            const formData = new FormData(this);
-            formData.append('_method', 'PUT');
-
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mise à jour...';
-
-            fetch(`/admin/music/${musicId}`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Accept': 'application/json'
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    bootstrap.Modal.getInstance(document.getElementById('editMusicModal')).hide();
-
-                    Swal.fire({
-                        title: 'Succès !',
-                        text: data.message,
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire('Erreur !', data.message || 'Une erreur est survenue.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire('Erreur !', 'Une erreur de connexion est survenue.', 'error');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            });
-        });
-    }
 });
+
+function modalopen(id) {
+
+    console.log('Open modal with id : ', id)
+}
+
+function deletemusic(id, title) {
+
+    Swal.fire({
+        title: 'Voulez vous supprimer la piste '+title+' ?',
+        text: "L'action est irréversible !",
+        icon: 'attention',
+        showCancelButton: true,
+        backdrop: `rgba(60,60,60,0.8)`,
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Annuler',
+        confirmButtonColor: "#008000",
+        cancelButtonColor: "#CF142B",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed){
+            event.preventDefault();
+            document.getElementById('delete-form-'+id).submit();
+            Swal.fire(
+                'Deleted!',
+                'Your item has been deleted.',
+                'success'
+            )
+        }
+    })
+}
+
 </script>
 
 <style>
