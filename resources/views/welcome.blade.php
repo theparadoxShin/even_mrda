@@ -10,25 +10,25 @@
     * {
         box-sizing: border-box;
     }
-    
+
     html, body {
         overflow-x: hidden;
         max-width: 100vw;
     }
-    
+
     /* Additional container constraints */
     .row {
         margin-left: 0;
         margin-right: 0;
         max-width: 100%;
     }
-    
+
     .col, [class*="col-"] {
         padding-left: 12px;
         padding-right: 12px;
         max-width: 100%;
     }
-    
+
     /* Prevent any element from exceeding viewport */
     .container, .container-fluid, .row, .col {
         max-width: 100vw;
@@ -416,31 +416,31 @@
         .event-actions-home {
             flex-direction: column;
         }
-        
+
         .hero-carousel, .carousel-item {
             max-width: 100vw;
         }
-        
+
         .carousel-content {
             padding: 0 15px;
         }
-        
+
         .gallery-scroll-section {
             padding: 2rem 10px;
             margin: 1rem 0;
         }
-        
+
         /* Modal fixes for mobile */
         .modal-dialog {
             max-width: 95vw;
             margin: 10px;
         }
-        
+
         .modal-content {
             max-width: 100%;
             overflow-x: hidden;
         }
-        
+
         /* Container fixes */
         .container, .container-fluid {
             max-width: 100vw;
@@ -448,13 +448,13 @@
             padding-left: 15px;
             padding-right: 15px;
         }
-        
+
         /* Image constraints */
         img {
             max-width: 100%;
             height: auto;
         }
-        
+
         /* Text and heading constraints */
         h1, h2, h3, h4, h5, h6, p {
             word-wrap: break-word;
@@ -1194,7 +1194,7 @@
                         </div>
                         <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="400">
                             <i class="fas fa-map-marker-alt fa-2x mb-2 text-primary"></i>
-                            <div class="text-dark">5366 Chem. de la côte des neiges Montréal, QC, Canada</div>
+                            <div class="text-dark">4550, rue d’Orléans, Montréal, QC, Canada</div>
                         </div>
                     </div>
                     <a href="{{ route('contact.index') }}" class="btn btn-musical mt-4" data-aos="fade-up" data-aos-delay="500">

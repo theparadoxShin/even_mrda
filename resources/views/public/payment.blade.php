@@ -110,6 +110,7 @@
                                         </p>
                                     </div>
                                 </div>
+
                             @endif
 
                             <div class="text-center">
@@ -121,7 +122,7 @@
                                         <i class="fas fa-check me-2"></i>Confirmer l'inscription gratuite
                                     @endif
                                 </span>
-                                    <span id="payment-loading" style="display: none;">
+                                <span id="payment-loading" style="display: none;">
                                     <span class="spinner-border spinner-border-sm me-2"></span>Traitement...
                                 </span>
                                 </button>
@@ -159,7 +160,7 @@
                             <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
                             <h4 class="fw-bold text-success mb-3">Paiement réussi !</h4>
                             <p class="text-muted mb-4">
-                                Votre inscription a été confirmée. Vous recevrez un email de confirmation avec votre QR code d'entrée.
+                                Votre inscription a été confirmée. Vous recevrez un email pour les détails du paiement interac
                             </p>
                             <button type="button" class="btn btn-primary-custom" onclick="finish()">
                                 <i class="fas fa-home me-2"></i>Vers l'accueil
@@ -168,6 +169,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 @endsection
@@ -274,7 +276,7 @@
         }
 
         function processInteracPayment() {
-            // Simulation d'un paiement Interac - en réalité, vous devrez intégrer avec votre banque
+            // Simulation d'un paiement Interac
             setTimeout(() => {
                 showSuccess();
             }, 2000);

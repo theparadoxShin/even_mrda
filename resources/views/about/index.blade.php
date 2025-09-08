@@ -347,7 +347,7 @@
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-map-marker-alt fa-2x text-primary mb-2"></i>
                                 <div><strong>Adresse</strong></div>
-                                <div>5366 Chem. de la côte des neiges,Montréal, QC, Canada</div>
+                                <div>4550, rue d’Orléans,Montréal, QC, Canada</div>
                             </div>
                         </div>
                     </div>

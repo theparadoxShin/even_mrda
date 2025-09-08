@@ -123,10 +123,16 @@
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary-custom">
-                                    <i class="fas fa-arrow-right me-2"></i>Continuer vers le paiement
+                                <button type="submit" id="submit-register" class="btn btn-primary-custom">
+                                    <span id="register-text">
+                                        <i class="fas fa-check me-2"></i>Valider l'inscription et payer
+                                    </span>
+                                    <span id="register-loading" style="display: none;">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>Traitement...
+                                    </span>
                                 </button>
                             </div>
+
                         </form>
                     </div>
 
@@ -135,13 +141,13 @@
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-shield-alt fa-2x text-primary mb-2"></i>
-                                <h6 class="fw-bold">Paiement sécurisé</h6>
+                                <h6 class="fw-bold">Inscription sécurisée</h6>
                                 <small class="text-muted">Vos données sont protégées</small>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-credit-card fa-2x text-primary mb-2"></i>
                                 <h6 class="fw-bold">Moyens de paiement</h6>
-                                <small class="text-muted">Visa, Mastercard, Interac</small>
+                                <small class="text-muted">Interac pour le moment</small>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <i class="fas fa-envelope-open fa-2x text-primary mb-2"></i>
@@ -155,3 +161,45 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const submitButton = document.getElementById('submit-register');
+        const registerText = document.getElementById('register-text');
+        const registerLoading = document.getElementById('register-loading');
+
+        if (form && submitButton && registerText && registerLoading) {
+            form.addEventListener('submit', function(e) {
+                // Use native validation UI
+                if (!form.reportValidity()) {
+                    return;
+                }
+
+                // Prevent immediate navigation to let the spinner render
+                e.preventDefault();
+
+                // Show loading state
+                registerText.style.display = 'none';
+                registerLoading.style.display = 'inline-flex';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.7';
+
+                // Defer actual submit to next tick so browser paints the spinner
+                setTimeout(() => form.submit(), 50);
+            }, { once: false });
+        }
+
+        // Reset button state if user navigates back with bfcache
+        window.addEventListener('pageshow', function(e) {
+            if (e.persisted && submitButton && registerText && registerLoading) {
+                registerText.style.display = 'inline';
+                registerLoading.style.display = 'none';
+                submitButton.disabled = false;
+                submitButton.style.opacity = '1';
+            }
+        });
+    });
+</script>
+@endpush

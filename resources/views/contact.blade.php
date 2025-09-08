@@ -27,7 +27,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <h5>Notre Adresse</h5>
-                            <p class="text-muted">5366 Chem. de la côte des neiges<br>Montréal, QC, Canada</p>
+                            <p class="text-muted">4550, rue d’Orléans<br>Montréal, QC, Canada</p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">

@@ -63,7 +63,7 @@ class PublicController extends Controller
             ]);
         }
 
-        return redirect()->route('payment.form', $registration->id);
+        return redirect()->route('success');
     }
 
     public function showPaymentForm(Registration $registration)

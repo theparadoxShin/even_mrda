@@ -70,7 +70,7 @@
     @if($registration->event->price > 0)
         <div class="warning-box">
             <h3>⚠️ Paiement requis</h3>
-            <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD par virement interac à l'adresse/numéro : carelletchoumi@yahoo.fr /+1 (438) 491-8227 </strong>.</p>
+            <p><strong>Votre inscription n'est pas encore confirmée.</strong> Pour finaliser votre participation, vous devez effectuer le paiement de <strong>${{ number_format($registration->event->price, 2) }} CAD par virement interac à l'adresse/numéro : guemmegnem@yahoo.com / +14384918227 : Michelle Dadjeu</strong>.</p>
         </div>
     @else
         <div style="background: #d1fae5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; margin: 20px 0;">
@@ -83,7 +83,7 @@
     <ul>
         <li><strong>Événement :</strong> {{ $registration->event->name }}</li>
         <li><strong>Date :</strong> {{ $registration->event->event_date->format('d/m/Y à H:i') }}</li>
-        <li><strong>Prix :</strong> 
+        <li><strong>Prix :</strong>
             @if($registration->event->price > 0)
                 ${{ number_format($registration->event->price, 2) }} CAD
             @else

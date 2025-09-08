@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiement Réussi - CMRDA</title>
+    <title>Inscription Réussie - CMRDA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -39,8 +39,8 @@
         .success-icon {
             background: var(--success-green);
             color: var(--white);
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -109,9 +109,9 @@
         <i class="fas fa-check"></i>
     </div>
 
-    <h1 class="h2 fw-bold text-success mb-3">Paiement Réussi !</h1>
+    <h1 class="h2 fw-bold text-success mb-3">Inscription Réussi !</h1>
     <p class="lead text-muted mb-4">
-        Félicitations ! Votre inscription a été confirmée avec succès.
+        Félicitations ! Votre inscription a été confirmée avec succès, Vous pouvez procéder au paiement.
     </p>
 
     <div class="info-box">
@@ -119,8 +119,9 @@
             <i class="fas fa-info-circle me-2"></i>Que se passe-t-il maintenant ?
         </h5>
         <ul class="text-start text-muted">
-            <li class="mb-2">✅ Vous allez recevoir un email de confirmation</li>
-            <li class="mb-2">💲 Vous devez payer par virement interac</li>
+            <li class="mb-2">💲 Payer par interac au : +14384918227 / guemmegnem@yahoo.com : Michelle Dadjeu</li>
+            <li class="mb-2">✅ Vous allez recevoir un email de confirmation d'inscription</li>
+            <li class="mb-2">💲 Toutes les données y seront</li>
             <li class="mb-2">✉️ Nous confirmerons votre paiement avec notifications Email</li>
             <li class="mb-2">🎫 Votre QR code d'entrée sera joint à l'email</li>
             <li class="mb-2">📱 Vous recevrez des rappels avant l'événement</li>
@@ -130,10 +131,10 @@
 
     <div class="d-flex justify-content-center flex-wrap">
         <a href="{{ url('/') }}" class="btn btn-primary-custom">
-            <i class="fas fa-home me-2"></i>Retour à l'accueil
+            <i class="fas fa-home me-2"></i>Retour au site
         </a>
         <button onclick="window.close()" class="btn btn-outline-custom">
-            <i class="fas fa-times me-2"></i>Fermer cette page
+            <i class="fas fa-times me-2"></i>Fermer la page
         </button>
     </div>
 

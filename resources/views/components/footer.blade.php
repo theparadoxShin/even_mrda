@@ -57,7 +57,7 @@
                     </div>
                     <div class="contact-item mb-2">
                         <i class="fas fa-map-marker-alt me-2 text-warning"></i>
-                        <span>5366 Chem. de la côte des neiges<br>Montreal, QC</span>
+                        <span>4550, rue d’Orléans<br>Montreal, QC</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock me-2 text-warning"></i>
